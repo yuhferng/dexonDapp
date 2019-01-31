@@ -1,0 +1,24 @@
+{
+  "name": "dexondapp",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "dexon-truffle migrate",
+    "ganache-cli": "dexon-ganache-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuhferng/dexonDapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuhferng/dexonDapp/issues"
+  },
+  "homepage": "https://github.com/yuhferng/dexonDapp#readme",
+  "description": ""
+}
