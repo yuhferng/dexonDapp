@@ -4,11 +4,13 @@ contract SenSeiCoin {
     string public constant name = "SenSeiCoin";
     string public constant symbol = "SSC";
     uint8 public constant decimals = 12;
+    address Deployer;
 
     uint256 public constant _totalSupply = 10000000;
     mapping (address => uint256) private _balances;
     constructor() public {
         _balances[msg.sender] = _totalSupply;
+        Deployer = msg.sender;
     }
     function totalSupply() public pure returns (uint256) {
         return _totalSupply;
@@ -20,5 +22,10 @@ contract SenSeiCoin {
         _balances[msg.sender] = _balances[msg.sender] - value;
         _balances[to] = _balances[to] + value;
         return true;
+    }
+    function faucet(address to) public returns (uint256) {
+        _balances[Deployer] = _balances[Deployer] - 1000;
+        _balances[to] = _balances[to] + 1000;
+        return _balances[to];
     }
 }
