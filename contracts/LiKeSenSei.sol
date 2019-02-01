@@ -14,19 +14,25 @@ contract LiKeSenSei is SenSeiCoin {
 
     mapping(address => Property) public UserProperty;
     
+    event buylunchbox(uint amount);
+    event buySuitcase(uint amount);
+    event buyCarkey(uint amount);
     constructor () public {
         Owner = msg.sender;
     }
 
     function BuyProperty(string memory cargo,uint amount) public payable{
         if(StringUtils.equal(cargo,"LunchBox")){
-            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].LunchBox, amount);
+            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].LunchBox, SafeMath.mul(SafeMath.div(msg.value,5),amount));
+            emit buylunchbox(amount);
         }
         else if(StringUtils.equal(cargo,"SuitCase")){
-            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].SuitCase, amount);
+            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].LunchBox, SafeMath.mul(SafeMath.div(msg.value,5),amount));
+            emit buySuitcase(amount);
         }
         else if(StringUtils.equal(cargo,"Carkey")){
-            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].LunchBox, 1);
+            UserProperty[msg.sender].LunchBox = SafeMath.add(UserProperty[msg.sender].LunchBox, SafeMath.mul(SafeMath.div(msg.value,5),amount));
+            emit buyCarkey(amount);
         }
     }
 }
