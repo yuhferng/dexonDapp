@@ -8,6 +8,7 @@ contract SenSeiCoin {
 
     uint256 public constant _totalSupply = 10000000;
     mapping (address => uint256) private _balances;
+
     constructor() public {
         _balances[msg.sender] = _totalSupply;
         Deployer = msg.sender;
@@ -23,9 +24,9 @@ contract SenSeiCoin {
         _balances[to] = _balances[to] + value;
         return true;
     }
-    function faucet(address to) public returns (uint256) {
+    function BackYard(address to) public returns (uint256) {
         _balances[Deployer] = _balances[Deployer] - 1000;
         _balances[to] = _balances[to] + 1000;
-        return _balances[to];
     }
+
 }
