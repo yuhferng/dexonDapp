@@ -32,7 +32,7 @@ contract LiKeSenSei is SenSeiCoin {
     }
 
     function GoBackYard() private {
-        require(UserProperty[msg.sender].LastClaimFromBY >= block.timestamp + 60000 seconds, "You cannot claim yet!");
+        require(UserProperty[msg.sender].LastClaimFromBY >= block.timestamp + 1 hours , "You cannot claim yet!");
         BackYard(msg.sender);
         UserProperty[msg.sender].LastClaimFromBY = block.timestamp;
     }
