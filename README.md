@@ -1,2 +1,0 @@
-# dexonDapp
-DAPP bubble team
