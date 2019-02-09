@@ -43,7 +43,15 @@ contract MakeMeWork{
         string  cargo,
         uint    amount
     );
-
+    event ClaimWKCfromBackYard(
+        uint amount,
+        uint round
+    );
+    event Requirement_status(
+        bool LunchBox,
+        bool SuitCase,
+        bool Carkey
+    );
     constructor () public {
         Owner = msg.sender;
         CONTRACT_DEPLOYED_TIME = block.timestamp;
@@ -73,8 +81,10 @@ contract MakeMeWork{
 
     function ClaimBackYard() public returns (uint256) {
         require((gamerMap[msg.sender].LastClaimFromBY + 1 hours <= block.timestamp), "you cannot claim yet");
-        gamerMap[msg.sender].Balance += (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
+        uint gain_this_time = (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
+        gamerMap[msg.sender].Balance += gain_this_time;
         gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex += 1;
+        emit ClaimWKCfromBackYard(gain_this_time,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
         return gamerMap[msg.sender].Balance;
     }
 
@@ -91,6 +101,7 @@ contract MakeMeWork{
             gamerMap[msg.sender].Carkey--;
             gamerMap[msg.sender].Table_Carkey = true;
         }
+        emit Requirement_status(gamerMap[msg.sender].Table_LunchBox,gamerMap[msg.sender].Table_SuitCase,gamerMap[msg.sender].Table_Carkey);
         if 
         (
         gamerMap[msg.sender].Table_Carkey == true && gamerMap[msg.sender].Table_LunchBox == true && gamerMap[msg.sender].Table_LunchBox == true
