@@ -2,10 +2,10 @@ pragma solidity ^0.5.0;
 
 import "./SafeMath.sol";
 import "./StringUtils.sol";
+import "./Ownable.sol";
 
-contract MakeMeWork{
-    
-    address Owner;
+contract MakeMeWork is Ownable {
+
     uint public CUR_GAME_START_TIME;
     uint public CONTRACT_DEPLOYED_TIME;
     uint public roundidx = 0;
@@ -16,6 +16,8 @@ contract MakeMeWork{
         uint expectedGainDexon;
         bool isWorkerOn;
         uint currentWKCGetIndex;
+        bool participated;
+        uint hoursWorked;
     }
 
     struct gamerStatus{
@@ -23,10 +25,6 @@ contract MakeMeWork{
         uint LunchBox;
         uint SuitCase;
         uint Carkey;
-        bool Table;
-        bool Table_LunchBox;
-        bool Table_SuitCase;
-        bool Table_Carkey;
         uint LastClaimFromBY;
         mapping(uint=>gamerStatusThisRound) thisRound;
     }
@@ -53,13 +51,7 @@ contract MakeMeWork{
         bool Carkey
     );
     constructor () public {
-        Owner = msg.sender;
         CONTRACT_DEPLOYED_TIME = block.timestamp;
-    }
-
-    modifier OwnerOnly () {
-        require(msg.sender == Owner, "You can't use this function darling");
-        _;
     }
 
     function BuyProperty(string memory cargo,uint amount) public returns (uint256){
@@ -88,25 +80,27 @@ contract MakeMeWork{
         return gamerMap[msg.sender].Balance;
     }
 
-    function addRequirement(string memory putin) public {
-        if (StringUtils.equal(putin,"LunchBox")){
-            gamerMap[msg.sender].LunchBox--;
-            gamerMap[msg.sender].Table_LunchBox = true;
+    function calculateRanking() public onlyOwner() {
+    }
+
+    function calcuateAmountPaid() public onlyOwner() {
+    }
+
+    function goToWork(uint _roundidx) public onlyOwner() {
+    /** Randomize the expected earning's this round
+     */
+    }
+
+    function goToWorkGamer(address _addr, uint _roundidx) internal {
+        if(gamerMap[addr].LunchBox>1&&gamerMap[addr].SuitCase>1&&gamerMap[addr].Carkey>1){
+            gamerMap[_addr].LunchBox--;
+            gamerMap[_addr].SuitCase--;
+            gamerMap[_addr].Carkey--;
+            gamerMap[_addr].thisRound[roundidx].participated = true
         }
-        else if (StringUtils.equal(putin,"SuitCase")){
-            gamerMap[msg.sender].SuitCase--;
-            gamerMap[msg.sender].Table_SuitCase = true;
-        }
-        else if (StringUtils.equal(putin,"Carkey")){
-            gamerMap[msg.sender].Carkey--;
-            gamerMap[msg.sender].Table_Carkey = true;
-        }
-        emit Requirement_status(gamerMap[msg.sender].Table_LunchBox,gamerMap[msg.sender].Table_SuitCase,gamerMap[msg.sender].Table_Carkey);
-        if 
-        (
-        gamerMap[msg.sender].Table_Carkey == true && gamerMap[msg.sender].Table_LunchBox == true && gamerMap[msg.sender].Table_LunchBox == true
-        ){
-            gamerMap[msg.sender].Table = true;
+        if(gamerMap[_addr].thisRound[roundidx].participated = true){
+            /**Use Dexon functions to randomize the expected hours to thisRound[idx].hoursWorked
+             */
         }
     }
 }
