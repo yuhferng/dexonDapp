@@ -67,6 +67,9 @@ contract MakeMeWork is Ownable {
             gamerMap[msg.sender].Carkey += amount;
             emit buyPropertyevent("Carkey",amount);
         }
+        else{
+            revert("You're buying things not on the list!");
+        }
         gamerMap[msg.sender].Balance -= amount * 50;
         return gamerMap[msg.sender].Balance;
     }
