@@ -56,26 +56,32 @@ contract MakeMeWork{
         Owner = msg.sender;
         CONTRACT_DEPLOYED_TIME = block.timestamp;
     }
-
     modifier OwnerOnly () {
         require(msg.sender == Owner, "You can't use this function darling");
         _;
     }
 
-    function BuyProperty(string memory cargo,uint amount) public returns (uint256){
+    function BuyProperty(string memory cargo,uint amount) public payable returns (uint256){
         if(StringUtils.equal(cargo,"LunchBox")){
+            require(gamerMap[msg.sender].Balance >= 50,"You don't have enough token!");
             gamerMap[msg.sender].LunchBox += amount;
+            gamerMap[msg.sender].Balance -= amount * 50;
             emit buyPropertyevent("LunchBox",amount);
         }
         else if(StringUtils.equal(cargo,"SuitCase")){
+            require(gamerMap[msg.sender].Balance >= 60,"You don't have enough token!");
             gamerMap[msg.sender].SuitCase += amount;
+            gamerMap[msg.sender].Balance -= amount * 60;
             emit buyPropertyevent("SuitCase",amount);
         }
         else if(StringUtils.equal(cargo,"Carkey")){
+            require(msg.value == 1 ether,"Hello");
             gamerMap[msg.sender].Carkey += amount;
             emit buyPropertyevent("Carkey",amount);
         }
-        gamerMap[msg.sender].Balance -= amount * 50;
+        else{
+            revert("Nope!");
+        }
         return gamerMap[msg.sender].Balance;
     }
 
@@ -90,15 +96,15 @@ contract MakeMeWork{
 
     function addRequirement(string memory putin) public {
         if (StringUtils.equal(putin,"LunchBox")){
-            gamerMap[msg.sender].LunchBox--;
+            require(gamerMap[msg.sender].LunchBox >= 1,"You don't have enough LunchBox");
             gamerMap[msg.sender].Table_LunchBox = true;
         }
         else if (StringUtils.equal(putin,"SuitCase")){
-            gamerMap[msg.sender].SuitCase--;
+            require(gamerMap[msg.sender].LunchBox >= 1,"You don't have enough SuitCase");
             gamerMap[msg.sender].Table_SuitCase = true;
         }
         else if (StringUtils.equal(putin,"Carkey")){
-            gamerMap[msg.sender].Carkey--;
+            require(gamerMap[msg.sender].LunchBox >= 1,"You don't have enough Carkey");
             gamerMap[msg.sender].Table_Carkey = true;
         }
         emit Requirement_status(gamerMap[msg.sender].Table_LunchBox,gamerMap[msg.sender].Table_SuitCase,gamerMap[msg.sender].Table_Carkey);
