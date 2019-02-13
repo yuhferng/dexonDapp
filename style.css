@@ -178,18 +178,17 @@ img {
 		flex:1;
 		padding: 10px;
 		padding-left: 185px;
+		position: relative;
 	}
 
-	.primary{
-
-	}
+	.primary{}
 
 	.shopping-nav{
 	display: flex;
 	flex-direction: column;
 	position: absolute;
 	right: 30px;
-	top:150px;
+	top: 50px;
 	}
 
 	.shopping-nav .shop{
@@ -207,8 +206,6 @@ img {
 	}
 
 	.shopping-nav img{
-	 padding-left: 10px;
-	 top:10px;
 	}
 
 	.shop .house{
@@ -220,27 +217,27 @@ img {
 	 .money{
 	 	position: absolute;
 	 	top:200px;
-	 	left:1500px;
-	 	margin-top: 10px; 
+	 	right: 26px;
+	 	top: 55px;
 	}
 
 
 	.banner img{
-	 position: absolute;
-	 right:100px;
-	 height: 100%;
-	 width:50%;
+	 position: relative;
+	 right: 135px;
+	 top: 80px;
 	}
 
 	.desk img{
-	 position: absolute;
-	 width: 35%;
-	 left:100px;
-	 bottom:180px;
+	 position: relative;
+	 width: 550px;
+	 top: 50px;
+	 /* left:100px; */
+	 /* bottom:180px; */
 	}
 
 	.backyard a{
-		border-width: 1px;
+		border-width: 2px;
 		border-style: solid;
 		border-color: #fff;
 		border-radius: 12px;
@@ -254,9 +251,8 @@ img {
 
 	.hook{
 		position: absolute;
-		bottom:110px;
+		bottom: 113px;
 		left:50px;
-
 	}
 
 	.container1 , 
@@ -269,22 +265,22 @@ img {
 	.container1{
 		position: absolute;
 		line-height: 0px;
-		top:245px;
-		left:220px;
+		top: 100px;
+		left: 130px;
 	}
 
 	.container2{
 		position: absolute;
 		line-height: 0px;
-		top:245px;
-		left:480px;
+		top: 100px;
+		left: 382px;
 	}
 
 	.container3{
 		position: absolute;
 		line-height: 0px;
-		top:360px;
-		left:350px;
+		top: 225px;
+		left: 257px;
 	}
 
 
@@ -292,6 +288,7 @@ img {
 	.container2 p,
 	.container3 p{
 		color: #fff;
+		font-size: 16px;
 	}
 
 	.container1 button,
@@ -303,7 +300,7 @@ img {
 		border-style: solid;
 		border-width: 1px;
 		border-color: #000;
-		border-radius: 12px;
+		border-radius: 5px;
 		position: absolute;
 		top:60px;
 	}
