@@ -16,6 +16,8 @@ contract MakeWeWork{
         uint expectedGainDexon;
         bool isWorkerOn;
         uint currentWKCGetIndex;
+        bool participated;
+        uint hoursWorked;
     }
 
     struct gamerStatus{
