@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 import "./SafeMath.sol";
 import "./StringUtils.sol";
 
-contract MakeMeWork{
+contract MakeWeWork{
     
     address Owner;
     uint public CUR_GAME_START_TIME;

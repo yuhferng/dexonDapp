@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "dexon-truffle migrate",
+    "migrate:dexontestnet":"dexon-truffle migrate --network dexonTestnet",
     "ganache-cli": "dexon-ganache-cli"
   },
   "repository": {
@@ -20,5 +21,9 @@
     "url": "https://github.com/yuhferng/dexonDapp/issues"
   },
   "homepage": "https://github.com/yuhferng/dexonDapp#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "secret": "^1.0.2",
+    "truffle-hdwallet-provider": "^1.0.4"
+  }
 }
