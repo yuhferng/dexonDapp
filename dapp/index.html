@@ -4,11 +4,13 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
 <link rel="stylesheet" href="reset.css">
 <link rel="stylesheet" href="top.css">
+<link rel="stylesheet" href="main-page.css">
   <title>MakeWeWork</title>
   </style>
 </head>
 <body bgcolor = "#FF8800">
   <div id="top">
+    <img id = "icon" src="src/Icon.png" height="75vh">
     <span id="Dappname">MakeWeWork</span>
     <button>遊戲規則</button>
     <button>白皮書</button>
@@ -19,24 +21,16 @@
       <option value="en">英文</option>
     </select>
   </div>
+  <div id ="main-page">
+    <img id="arrow" src="src/arrow.png" height="22vh">
+    <button>後院</button>
+    <img id="table" src="src/table.png" height="500vh">
+    <img id="man" src="src/man.png" height="700vh">
+    <button id = "sidebar">商店<img src="src/house.png" height="22vh"></button>
+    <button id = "sidebar">餘額<img src="src/wkc.png" height="22vh"></button>
+  </div>
 
   <script>
-    var top = new Vue({
-      el: '#top',
-      data: {
-        greeting: 'Welcome to your Vue.js app!',
-        docsURL: 'http://vuejs.org/guide/',
-        discordURL: 'https://chat.vuejs.org',
-        forumURL: 'http://forum.vuejs.org/'
-      },
-      methods: {
-        humanizeURL: function (url) {
-          return url
-            .replace(/^https?:\/\//, '')
-            .replace(/\/$/, '')
-        }
-      }
-    })
   </script>
 </body>
 </html>

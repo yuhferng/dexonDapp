@@ -2,24 +2,34 @@
     background-color: white;
     height: 10vh;
     width:100vw;
+    display: flex;
+}
+#top #icon{
+    margin: 0 0 0 2vw;
 }
 #top button{
-    background-color: #FF8800;
+    background-color: #FF7D12;
     color: white;
     font-size: 1.9vh;
     height: 5vh;
     width: 6.3vw;
     font-family: 'Noto Sans TC', sans-serif;
     margin: 1.3vw 0.5vw;
+    border : 3px  solid  #FF7D12;
     border-radius: 1.5vh;
+    
+}
+#top button:hover{
+    background-color: white;
+    color: #FF7D12;
+    cursor: pointer;
 }
 #top #Dappname{
-    color: #FF8800;
+    color: #FF7D12;
     font-weight: 900;
-    font-size: 2.5vh;
     height: 5.2vh;
     font-size: 3vh;
-    margin:1.5vw 1.5vw 1.5vw 8vw;
+    margin:1.5vw 1.5vw 1.5vw 1vw;
 }
 #top #nextworkingtime{
     background-color: white;
@@ -33,7 +43,7 @@
 #top #selectlang{
     background-color: white;
     color: black;
-    border: 3px solid #FF8800;
+    border: 3px solid #FF7D12;
     font-size: 1.9vh;
     border-radius: 100vh;
     height: 5vh;
