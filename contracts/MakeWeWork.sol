@@ -44,6 +44,10 @@ contract MakeWeWork {
     mapping(address=>gamerStatus) public gamerMap;
     mapping(uint=>address[]) public participants;
 
+    event PlayerInitialized(
+        address playerAddr
+    );
+
     event BuyPropertyEvent(
         string  cargo,
         uint    amount
@@ -161,10 +165,14 @@ contract MakeWeWork {
     function gamerRegistering() public {
         gamerMap[msg.sender].init=true;
         gamerMap[msg.sender].wkcBalance=100000000;
+        emit PlayerInitialized(msg.sender);
     }
 
     function getPropertyNumbers() view public returns (uint256, uint256, uint256){
         return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey);
     }
 
+    function getValueAtMapping() public view returns(bool init) {
+        return gamerMap[msg.sender].init;
+    }
 }

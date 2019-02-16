@@ -1,6 +1,7 @@
 
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = 'merry child curtain peasant flag evoke atom puppy velvet unveil broken fetch';
+const secret = require('../secret')
+const mnemonic = secret.mnemonic
 
 module.exports = {
   networks: {
