@@ -58,64 +58,80 @@ const init = async () => {
   }
 
   // DOM Element to display "value" in contract
-  const valueDisplayElement = document.getElementById('value');
+  
+  //const valueDisplayElement = document.getElementById('value');
+  
   // Get current value and display it
-  const roundindex = await contractReader.methods.roundidx().call();
+  
+  //const roundindex = await contractReader.methods.roundidx().call();
   const UserProperty = await contractReader.methods.getPropertyNumbers().call();
   const AmountofSuitCase = document.getElementById('SuitCaseAmount');
   const AmountofLunchBox = document.getElementById('LunchBoxAmount');
-  const AmountofCarkey = document.getElementById('CarkeyAmount');
+  const AmountofCarkey = document.getElementById('CarKeyAmount');
   
   AmountofSuitCase.textContent = UserProperty[0];
   AmountofLunchBox.textContent = UserProperty[1];
   AmountofCarkey.textContent = UserProperty[2];
-// Call "update" function in the contract when we click on the update button
-  const useSuitCase = document.getElementById('UseProperty1');
-  const useLunchBox = document.getElementById('UseProperty2');
-  const useCarkey = document.getElementById('UseProperty3');
 
-  useSuitCase.onclick = async () =>{
+
+  const buySuitCase = document.getElementById('buyProperty1');
+  const buyLunchBox = document.getElementById('buyProperty2');
+  const buyCarkey = document.getElementById('buyProperty3');
+
+  buySuitCase.onclick = async () =>{
     if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('SuitCase').send({
+      await contractWriter.methods.BuyProperty('suitCase', 1).send({
         from: myAccount,
       });
-      useSuitCase.textContent -= 1;
     }
   }
 
-  useLunchBox.onclick = async () =>{
+  buyLunchBox.onclick = async () =>{
     if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('LunchBox').send({
+      await contractWriter.methods.BuyProperty('lunchBox', 1).send({
         from: myAccount,
       });
-      useLunchBox.textContent -= 1;
     }
   }
 
-  useCarkey.onclick = async () =>{
+  buyCarkey.onclick = async () =>{
     if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('Carkey').send({
-        from: myAccount,
+      await contractWriter.methods.BuyProperty('carKey', 1).send({
+        from: myAccount, value: 1*10**18
       });
-      useCarkey.textContent -= 1;
     }
   }
-  
+
+
+
+  // DOM Element to display "value" in contract
+  const registerDisplayElement = document.getElementById('registered');
+  // Get current value and display it
+  const val = await contractReader.methods.getValueAtMapping().call();
+  registerDisplayElement.textContent = val;
+
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
-  contractReader.events.UpdateNumber({}, (err, data) => {
+  contractReader.events.PlayerInitialized({}, (err, data) => {
     if (err) {
       console.error(err);
       return;
     }
-    console.log('[Event] UpdateNumber', data.returnValues.value);
-    valueDisplayElement.textContent = data.returnValues.value;
+    console.log('[Event] UpdateNumber', data.returnValues.playerAddr);
+    registerDisplayElement.textContent = data.returnValues.playerAddr;
+    
   });
-  /*CarkeyAmount.onclick = async () => {
-    if (contractWriter && myAccount){
-      await contractWriter.methods.
+
+  // Call "update" function in the contract when we click on the update button
+  const registerButton = document.getElementById('register');
+  registerButton.onclick = async () => {
+    if (contractWriter && myAccount) {
+      await contractWriter.methods.gamerRegistering().send({
+        from: myAccount,
+      });
     }
   }
-  */
+  
+
 };
 
-init();
+init()
