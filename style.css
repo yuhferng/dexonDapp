@@ -205,20 +205,40 @@ img {
 	padding-right: 80px;
 	}
 
-	.shopping-nav img{
+	.right-button{
+		font-size: 2.4vh;
+		background-color: #FF7D12;
+		width: 11vw;
+		height: 6vh;
+		border: 3px solid black;
+		border-radius: 1.5vh;
+		padding-right: 3vh;
+	}
+	.right-button:hover{
+		cursor: pointer;
+		border-color: white;
+	}
+	.house-position{
+		position: absolute;
+		right: 0vw;
+		bottom: 0vh;
+	}
+	.balance-position{
+		position: absolute;
+		top: 4vh;
+		right: 0vw;
 	}
 
 	.shop .house{
 		position: absolute;
 		left:100px;
-		top:5px;
+		top:8px;
 	}
 
 	 .money{
 	 	position: absolute;
-	 	top:200px;
 	 	right: 26px;
-	 	top: 55px;
+	 	top: 0px;
 	}
 
 

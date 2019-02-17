@@ -1,0 +1,70 @@
+#popups-shop{
+    background-color: #1add2afd;
+    visibility: hidden;
+    position: absolute;
+    border: 3px solid black;
+    height: 38vh;
+    width:30vw;
+    border-radius: 4vh;
+    top: 30vh;
+    right: 35vw;
+}
+#popups-shop #shops #title button{
+    background-color: #1add2afd;
+    color: white;
+    height: 5vh;
+    margin: 1vh 0 0 8px;
+    border-radius: 3vw;
+}
+#popups-shop #shops #title #text{
+    font-size: 3vh;
+    margin: 0.3vh 10vw 0.2vh 10vw;
+}
+#popups-shop #shops #shopbellow{
+    display: flex;
+    flex-direction: row;
+}
+
+#popups-shop #shops #shopbellow #shoppics{
+    display: flex;
+    flex-direction: column;
+}
+
+#popups-shop #shops #shopbellow #buybutton{
+    width: 4vw;
+}
+.shoptext{
+    font-size: 2.2vh;
+    padding: 1vh;
+    margin-left: 1.4vw;
+}
+.price{
+    color: white;
+    font-size: 2.2vh;
+    padding: 1vh;
+}
+.shop-item-size{
+    height: 8vh;
+    margin: 0.8vh 0 0 3vw;
+}
+.carkey_pic{
+    width: 4vw;
+    margin-top: 1vh;
+    padding-left: 1vw;
+}
+.purchase{
+    font-size: 1.7vh;
+    color: white;
+    width: 5.3vw;
+    height: 3.7vh;
+    background-color: #1add2afd;
+    border: 3px solid white;
+    border-radius: 3vh;
+    margin: 2.9vh;
+}
+
+.purchase:hover{
+    background-color: white;
+    color: #1add2afd;
+    cursor: pointer;
+}

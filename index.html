@@ -6,7 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" href="css/flexbox.css">
 		<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-		<script src=""></script>
+		<link rel='stylesheet' href="./popups-style.css">
+		<script src="index.js"></script>
 	</head>
 
 	<body>
@@ -26,9 +27,7 @@
 
 	<div class="row" style="min-width:1600px;">	
 		<div class="primary col">
-			<div class="desk" style="
-    position: relative;
-">
+			<div class="desk" style="position: relative;">
 				<img class="desk-img" src="DApp_project/main/desk.png" alt="desk">
 			<div class="container1">
 				<p>公事包</p>
@@ -43,11 +42,7 @@
 				<p>數量：</p>
 				<button>使用</button>
 			</div></div><!--/.desk-->
-			<div class="backyard" style="
-    position: relative;
-    right: 200px;
-    top: 150px;
-">
+			<div class="backyard" style="position: relative;right: 200px; top: 150px;">
 				<a href="#">後院</a>
 			<img class="hook" src="DApp_project/main/hook.png" height="20px" width="20px&quot;" alt="hook"></div><!--/.backyard-->  
 		</div><!--/.primary-->
@@ -57,15 +52,46 @@
 				<img class="husband-img" src="DApp_project/main/husband.png" alt="husband">
 			</div><!--/.banner-->
 			<ul class="shopping-nav">
-				<li class="shop"><a href="#">商店</a><img class="house" src="DApp_project/main/house.png" height="30px" width="40px" alt="house"> 
+				<li class="shop">
+					<button class="right-button house-position" onclick="open_shop()">商店<img class="house" src="DApp_project/main/house.png" height="30px" width="40px" alt="house"></button>
 				</li>
 				<li class="balance">
-				<a href="#">餘額</a>
-				<img class="money" src="DApp_project/main/balance.png" height="40px" width="40px&quot;" alt="balance"></li>
+					<button class="right-button balance-position">餘額<img class="money" src="DApp_project/main/balance.png" height="40px" width="40px&quot;" alt="balance"></button>
+				</li>
 			</ul><!--/.shopping-nav-->  
 		</div><!--/.secondary-->
-			 
-			 
+
+		<div id = "popups-shop" class = "popup">
+			<div id = "shops" class='shop-popups'>
+				<div id ="title">
+					<button id ="quit" onclick="close_shop()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
+					<a id ="text">商店</a>
+				</div>
+				<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+				<div id= "shopbellow">
+					<div id="shoppics">
+						<img class="shop-item-size" src="DApp_project/shops/LunchBox.png">
+						<img class="shop-item-size" src="DApp_project/shops/SuitCase.png">
+						<img class="shop-item-size carkey_pic" src="DApp_project/shops/Carkey.png">
+					</div>
+					<div>
+						<p class ="shoptext">便當盒</p>
+						<p class ="shoptext">公事包</p>
+						<p class ="shoptext">車鑰匙</p>
+					</div>
+					<div>
+						<p class ="price">50WKC</p>
+						<p class ="price">60WKC</p>
+						<p class ="price">1DXN</p>
+					</div>
+					<div id="buybutton">
+						<button class="purchase">購買</button>
+						<button class="purchase">購買</button>
+						<button class="purchase">購買</button>
+					</div>
+				</div>
+			</div>
+		</div>
 			
 			
 			
