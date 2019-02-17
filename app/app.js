@@ -8,7 +8,7 @@ const init = async () => {
    * Web3 team is working on reducing the bundle size, let's see how it goes
    * https://github.com/ethereum/web3.js/pull/2000
    */
-  const Web3 = await import('web3');
+  var Web3 = await import('web3');
 
   let httpHandler;
   let wsHandler;
@@ -60,29 +60,62 @@ const init = async () => {
   // DOM Element to display "value" in contract
   const valueDisplayElement = document.getElementById('value');
   // Get current value and display it
-  const val = await contractReader.methods.getValueAtMapping().call();
-  valueDisplayElement.textContent = val;
+  const roundindex = await contractReader.methods.roundidx().call();
+  const UserProperty = await contractReader.methods.getPropertyNumbers().call();
+  const AmountofSuitCase = document.getElementById('SuitCaseAmount');
+  const AmountofLunchBox = document.getElementById('LunchBoxAmount');
+  const AmountofCarkey = document.getElementById('CarkeyAmount');
+  
+  AmountofSuitCase.textContent = UserProperty[0];
+  AmountofLunchBox.textContent = UserProperty[1];
+  AmountofCarkey.textContent = UserProperty[2];
+// Call "update" function in the contract when we click on the update button
+  const useSuitCase = document.getElementById('UseProperty1');
+  const useLunchBox = document.getElementById('UseProperty2');
+  const useCarkey = document.getElementById('UseProperty3');
 
+  useSuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('SuitCase').send({
+        from: myAccount,
+      });
+      useSuitCase.textContent -= 1;
+    }
+  }
+
+  useLunchBox.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('LunchBox').send({
+        from: myAccount,
+      });
+      useLunchBox.textContent -= 1;
+    }
+  }
+
+  useCarkey.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('Carkey').send({
+        from: myAccount,
+      });
+      useCarkey.textContent -= 1;
+    }
+  }
+  
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
-  contractReader.events.PlayerInitialized({}, (err, data) => {
+  contractReader.events.UpdateNumber({}, (err, data) => {
     if (err) {
       console.error(err);
       return;
     }
-    console.log('[Event] UpdateNumber', data.returnValues.playerAddr);
-    valueDisplayElement.textContent = data.returnValues.playerAddr;
-    
+    console.log('[Event] UpdateNumber', data.returnValues.value);
+    valueDisplayElement.textContent = data.returnValues.value;
   });
-
-  // Call "update" function in the contract when we click on the update button
-  const updateButton = document.getElementById('update');
-  updateButton.onclick = async () => {
-    if (contractWriter && myAccount) {
-      await contractWriter.methods.gamerRegistering().send({
-        from: myAccount,
-      });
+  /*CarkeyAmount.onclick = async () => {
+    if (contractWriter && myAccount){
+      await contractWriter.methods.
     }
   }
+  */
 };
 
 init();
