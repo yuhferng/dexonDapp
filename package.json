@@ -32,7 +32,10 @@
     "@dexon-foundation/ganache-cli": "^6.2.5",
     "@dexon-foundation/truffle": "^5.0.12",
     "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^2.1.0",
     "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
+    "style-loader": "^0.23.1",
     "truffle-hdwallet-provider": "^1.0.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.1"
