@@ -1,6 +1,9 @@
 #popups-shop{
-    background-color: #1add2afd;
     visibility: hidden;
+}
+
+.popup{
+    background-color: #1add2afd;
     position: absolute;
     border: 3px solid black;
     height: 38vh;
@@ -9,14 +12,14 @@
     top: 30vh;
     right: 35vw;
 }
-#popups-shop #shops #title button{
+.closebutton{
     background-color: #1add2afd;
     color: white;
     height: 5vh;
     margin: 1vh 0 0 8px;
     border-radius: 3vw;
 }
-#popups-shop #shops #title #text{
+.text{
     font-size: 3vh;
     margin: 0.3vh 10vw 0.2vh 10vw;
 }
@@ -67,4 +70,42 @@
     background-color: white;
     color: #1add2afd;
     cursor: pointer;
+}
+
+/*---balance-popups---*/
+
+#popups-balance{
+    visibility: hidden;
+}
+.balnum{
+    color: white;
+    margin-left: 1vw;
+}
+.balance{
+    font-size: 4vh;
+    margin-left: 12vw;
+}
+.wkcamount{
+    font-size: 2.3vh;
+    margin: 1vh 0 1.2vh 11vw;
+}
+.withdraw{
+    background-color: #1add2afd;
+    color: white;
+    height: 4vh;
+    width: 6vw;
+    font-size: 2.2vh;
+    margin-left: 3vw;
+    padding:0 1vw 0 1vw;
+    border: 3px solid white;
+    border-radius: 3vh;
+}
+.withdraw:hover{
+    cursor: pointer;
+    background-color: white;
+    color: #1add2afd;
+}
+.last{
+    margin: 0 0 1vh 11vw;
+    font-size: 2.2vh;
 }

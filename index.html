@@ -56,7 +56,7 @@
 					<button class="right-button house-position" onclick="open_shop()">商店<img class="house" src="DApp_project/main/house.png" height="30px" width="40px" alt="house"></button>
 				</li>
 				<li class="balance">
-					<button class="right-button balance-position">餘額<img class="money" src="DApp_project/main/balance.png" height="40px" width="40px&quot;" alt="balance"></button>
+					<button class="right-button balance-position" onclick="open_balance()">餘額<img class="money" src="DApp_project/main/balance.png" height="40px" width="40px&quot;" alt="balance"></button>
 				</li>
 			</ul><!--/.shopping-nav-->  
 		</div><!--/.secondary-->
@@ -64,8 +64,8 @@
 		<div id = "popups-shop" class = "popup">
 			<div id = "shops" class='shop-popups'>
 				<div id ="title">
-					<button id ="quit" onclick="close_shop()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
-					<a id ="text">商店</a>
+					<button id ="quit" class ="closebutton" onclick="close_shop()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
+					<a class="text">商店</a>
 				</div>
 				<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
 				<div id= "shopbellow">
@@ -92,7 +92,23 @@
 				</div>
 			</div>
 		</div>
-			
+
+		<div id = "popups-balance" class = "popup">
+			<div id ="title">
+					<button id ="quit" class = "closebutton" onclick="close_balance()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
+					<a class ="text">餘額</a>
+			</div>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<p class="wkcamount">WKC<a id = "wkcbalance" class="balnum">120</a></p>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<p class="wkcamount">DXN<a id = "dxnbalance" class="balnum">1.6 <button id= "withdraw" class="withdraw">提領</button></a></p>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<div id="lastgame">
+				<p class="last">上一場紀錄</p>
+				<p id ="lastgame_wkc" class="last">+100WKC</p>
+				<p id ="lastgame_dxn" class="last">+0.8DXN</p>
+			</div>
+		</div>
 			
 			
 	</div>
