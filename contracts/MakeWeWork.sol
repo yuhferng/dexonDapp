@@ -88,7 +88,7 @@ contract MakeWeWork {
             emit BuyPropertyEvent("suitCase",amount);
         }
         else if(StringUtils.equal(cargo,"carKey")){
-            require(msg.value >= 1 ether,"Hello");
+            require(msg.value == 1 ether*amount,"Hello");
             gamerMap[msg.sender].carKey += amount;
             emit BuyPropertyEvent("carKey",amount);
         }
@@ -108,15 +108,15 @@ contract MakeWeWork {
     }
 
     function addRequirement(string memory putin) public {
-        if (StringUtils.equal(putin,"LunchBox")){
+        if (StringUtils.equal(putin,"lunchBox")){
             require(gamerMap[msg.sender].lunchBox >= 1,"You don't have enough LunchBox");
             gamerMap[msg.sender].tableLunchBox = true;
             }
-        else if (StringUtils.equal(putin,"SuitCase")){
+        else if (StringUtils.equal(putin,"suitCase")){
             require(gamerMap[msg.sender].suitCase >= 1,"You don't have enough SuitCase");
             gamerMap[msg.sender].tableSuitCase = true;
             }
-        else if (StringUtils.equal(putin,"Carkey")){
+        else if (StringUtils.equal(putin,"carKey")){
             require(gamerMap[msg.sender].carKey >= 1,"You don't have enough Carkey");
             gamerMap[msg.sender].tableCarKey = true;
             }
@@ -163,13 +163,19 @@ contract MakeWeWork {
     }
 
     function gamerRegistering() public {
-        gamerMap[msg.sender].init=true;
-        gamerMap[msg.sender].wkcBalance=100000000;
-        emit PlayerInitialized(msg.sender);
+        if(gamerMap[msg.sender].init==false){
+            gamerMap[msg.sender].init=true;
+            gamerMap[msg.sender].wkcBalance=100000000;
+            emit PlayerInitialized(msg.sender);
+        }
     }
 
     function getPropertyNumbers() view public returns (uint256, uint256, uint256){
         return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey);
+    }
+
+    function getTableStatus() view public returns (bool, bool, bool, bool){
+        return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase, gamerMap[msg.sender].tableCarKey);
     }
 
     function getValueAtMapping() public view returns(bool init) {

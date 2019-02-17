@@ -64,27 +64,30 @@ const init = async () => {
   // Get current value and display it
   
   //const roundindex = await contractReader.methods.roundidx().call();
-  const UserProperty = await contractReader.methods.getPropertyNumbers().call();
-  const AmountofSuitCase = document.getElementById('SuitCaseAmount');
-  const AmountofLunchBox = document.getElementById('LunchBoxAmount');
-  const AmountofCarkey = document.getElementById('CarKeyAmount');
+  const userProperty = await contractReader.methods.getPropertyNumbers().call();
+  const amountofSuitCase = document.getElementById('suitCaseAmount');
+  const amountofLunchBox = document.getElementById('lunchBoxAmount');
+  const amountofCarKey = document.getElementById('carKeyAmount');
   
-  AmountofSuitCase.textContent = UserProperty[0];
-  AmountofLunchBox.textContent = UserProperty[1];
-  AmountofCarkey.textContent = UserProperty[2];
+  amountofSuitCase.textContent = userProperty[0];
+  amountofLunchBox.textContent = userProperty[1];
+  amountofCarKey.textContent = userProperty[2];
 
+  const tableProperty = await contractReader.methods.getTableStatus().call();
 
-  const buySuitCase = document.getElementById('buyProperty1');
-  const buyLunchBox = document.getElementById('buyProperty2');
+  const table = document.getElementById('table');
+  const tableSuitCase = document.getElementById('tableSuitCase');
+  const tableLunchBox = document.getElementById('tableLunchBox');
+  const tableCarKey = document.getElementById('tableCarKey');
+  
+  table.textContent = tableProperty[0];
+  tableSuitCase.textContent = tableProperty[1];
+  tableLunchBox.textContent = tableProperty[2];
+  tableCarKey.textContent = tableProperty[3];
+
+  const buyLunchBox = document.getElementById('buyProperty1');
+  const buySuitCase = document.getElementById('buyProperty2');
   const buyCarkey = document.getElementById('buyProperty3');
-
-  buySuitCase.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.BuyProperty('suitCase', 1).send({
-        from: myAccount,
-      });
-    }
-  }
 
   buyLunchBox.onclick = async () =>{
     if(contractWriter && myAccount){
@@ -94,10 +97,46 @@ const init = async () => {
     }
   }
 
+  buySuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.BuyProperty('suitCase', 1).send({
+        from: myAccount,
+      });
+    }
+  }
+
   buyCarkey.onclick = async () =>{
     if(contractWriter && myAccount){
       await contractWriter.methods.BuyProperty('carKey', 1).send({
         from: myAccount, value: 1*10**18
+      });
+    }
+  }
+  
+  const addLunchBox = document.getElementById('addProperty1');
+  const addSuitCase = document.getElementById('addProperty2');
+  const addCarkey = document.getElementById('addProperty3');
+
+  addLunchBox.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('suitCase').send({
+        from: myAccount,
+      });
+    }
+  }
+
+  addSuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('lunchBox').send({
+        from: myAccount,
+      });
+    }
+  }
+
+  addCarkey.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('carKey').send({
+        from: myAccount,
       });
     }
   }
