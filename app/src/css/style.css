@@ -181,7 +181,6 @@ img {
 		position: relative;
 	}
 
-	.primary{}
 
 	.shopping-nav{
 	display: flex;
@@ -331,7 +330,7 @@ img {
 @media (min-width: 2800px) {
 }
 
-
-
-
+.icon{
+	height: 8vh;
+}
 
