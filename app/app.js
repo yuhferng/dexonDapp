@@ -74,16 +74,20 @@ const init = async () => {
   amountofCarKey.textContent = userProperty[2];
 
   const tableProperty = await contractReader.methods.getTableStatus().call();
+  const gamerRankOutput = await contractReader.methods.getGamerRank().call();
 
   const table = document.getElementById('table');
   const tableSuitCase = document.getElementById('tableSuitCase');
   const tableLunchBox = document.getElementById('tableLunchBox');
   const tableCarKey = document.getElementById('tableCarKey');
+  const gamerRankData = document.getElementById('gamerRankData');
+  
   
   table.textContent = tableProperty[0];
   tableSuitCase.textContent = tableProperty[1];
   tableLunchBox.textContent = tableProperty[2];
   tableCarKey.textContent = tableProperty[3];
+  gamerRankData.textContent = gamerRankOutput[0];
 
   const buyLunchBox = document.getElementById('buyProperty1');
   const buySuitCase = document.getElementById('buyProperty2');
@@ -146,7 +150,7 @@ const init = async () => {
   // DOM Element to display "value" in contract
   const registerDisplayElement = document.getElementById('registered');
   // Get current value and display it
-  const val = await contractReader.methods.getValueAtMapping().call();
+  const val = await contractReader.methods.getPlayerInitStatus().call();
   registerDisplayElement.textContent = val;
 
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
@@ -165,6 +169,15 @@ const init = async () => {
   registerButton.onclick = async () => {
     if (contractWriter && myAccount) {
       await contractWriter.methods.gamerRegistering().send({
+        from: myAccount,
+      });
+    }
+  }
+
+  const goToWorkButton = document.getElementById('goToWork');
+  goToWorkButton.onclick = async () => {
+    if (contractWriter && myAccount) {
+      await contractWriter.methods.GoToWorkThisRound().send({
         from: myAccount,
       });
     }

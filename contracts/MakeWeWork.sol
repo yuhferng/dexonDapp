@@ -117,7 +117,7 @@ contract MakeWeWork {
             gamerMap[msg.sender].tableSuitCase = true;
             }
         else if (StringUtils.equal(putin,"carKey")){
-            require(gamerMap[msg.sender].carKey >= 1,"You don't have enough Carkey");
+            require(gamerMap[msg.sender].carKey >= 1,"You don't have enough CarKey");
             gamerMap[msg.sender].tableCarKey = true;
             }
         emit RequirementStatus(gamerMap[msg.sender].tableLunchBox,gamerMap[msg.sender].tableSuitCase,gamerMap[msg.sender].tableCarKey);
@@ -178,7 +178,12 @@ contract MakeWeWork {
         return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase, gamerMap[msg.sender].tableCarKey);
     }
 
-    function getValueAtMapping() public view returns(bool init) {
+    function getPlayerInitStatus() public view returns(bool init) {
         return gamerMap[msg.sender].init;
     }
+
+    function getGamerRank() public view returns(uint hourRanked, uint workExpired) {
+        return (gamerMap[msg.sender].thisRound[0].hourRanked, gamerMap[msg.sender].thisRound[0].workExpiredTime);
+    }
+
 }
