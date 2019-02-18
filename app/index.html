@@ -7,7 +7,8 @@
 		<link rel="stylesheet" href="css/flexbox.css">
 		<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 		<link rel='stylesheet' href="src/css/style.css">
-		<script src="src/js/index.js"></script>
+		<link rel='stylesheet' href="src/css/backyard.css">
+		<script src="index.js"></script>
 	</head>
 	<body>
 		<header class="main-header" style="min-width: 1600px;">
@@ -24,8 +25,8 @@
 		</header><!--/.main-header-->  
 
 		
-	<div class="row" style="min-width:1600px;">	
-		<div class="primary col">
+	<div class="row" style="min-width:1600px;" >	
+		<div id = "main-left" class="primary col">
 			<div class="desk" style="position: relative;">
 				<img class="desk-img" src="https://i.imgur.com/DXjlm8f.png" title="source: imgur.com" alt="desk">
 			<div class="container1">
@@ -42,11 +43,11 @@
 				<button>使用</button>
 			</div></div><!--/.desk-->
 			<div class="backyard" style="position: relative;right: 200px; top: 150px;">
-				<a href="#">後院</a>
+				<button style="background-color:#FF7D12;color:white;position:absolute;left: 8vw; font-size:2.6vh;bottom: 11vh; width: 9vw; height: 5vh;border: 3px solid white; border-radius: 1vh; cursor: pointer;" onclick="goBackYard()">後院</button>
 			<img class="hook" src="https://i.imgur.com/DBOmTWp.png" title="source: imgur.com" height="20px" width="20px&quot;" alt="hook"></div><!--/.backyard-->  
 		</div><!--/.primary-->
 		
-		<div class="secondary col">
+		<div id = "main-right" class="secondary col">
 			<div class="banner">	
 				<img class="husband-img" src="https://i.imgur.com/ssHkzG6.png" title="source: imgur.com" alt="husband">
 			</div><!--/.banner-->
@@ -108,13 +109,19 @@
 				<p id ="lastgame_dxn" class="last">+0.8DXN</p>
 			</div>
 		</div>
-			
-			
+
+		<div id = "Backyard" >
+			<img src="https://i.imgur.com/7NnssNd.png" title="source: imgur.com" class="backyard-main"/>
+			<div id = "ClaimTable" class="backyardtable">
+				<img src="https://i.imgur.com/IuVFs07.png" title="source: imgur.com" class="backyard-table" />
+				<img src="https://i.imgur.com/CFR8knN.png" title="source: imgur.com" class="backyard-table hide"/>
+				<button id = "claimhere" class="claim-button backyard-button" onclick="Claim()">收成</button>
+				<button class="home-button backyard-button" onclick="gohome()">回家</button>
+				<img src="https://i.imgur.com/le5cWAR.png" title="source: imgur.com" class="arrow"/>
+			</div>
+		</div>	
 	</div>
 	
-
-
-
 </body>
 </html>
 

@@ -138,7 +138,13 @@ img {
 		align-items: center;
 		justify-content:space-between;
 	}
-
+	
+	#main-left{
+		visibility: visible;
+	}
+	#main-right{
+		visibility: visible;
+	}
 
 	.main-nav-left a {
 		background-color: #FF7D12;
