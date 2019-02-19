@@ -1,0 +1,43 @@
+{
+  "name": "dexondapp",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "dexon-truffle migrate",
+    "migrate:dexontestnet": "dexon-truffle migrate --network dexonTestnet --reset",
+    "ganache-cli": "dexon-ganache-cli",
+    "rpc": "node ./run-ganache.js",
+    "build:webapp": "webpack --progress --mode production && cd dist && python -m SimpleHTTPServer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuhferng/dexonDapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuhferng/dexonDapp/issues"
+  },
+  "homepage": "https://github.com/yuhferng/dexonDapp#readme",
+  "description": "",
+  "dependencies": {
+    "ethereum-input-data-decoder": "0.0.13",
+    "web3": "1.0.0-beta.37"
+  },
+  "devDependencies": {
+    "@dexon-foundation/ganache-cli": "^6.2.5",
+    "@dexon-foundation/truffle": "^5.0.12",
+    "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
+    "style-loader": "^0.23.1",
+    "truffle-hdwallet-provider": "^1.0.2",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1"
+  }
+}
