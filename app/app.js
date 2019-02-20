@@ -28,7 +28,13 @@ window.goBackYard = function (){
   mainright.style.visibility = 'hidden';
   var backyard = document.getElementById('Backyard');
   backyard.style.visibility = 'visible';
+  if ( document.getElementById('NoHair').style.visibility = 'hidden'){
+    document.getElementById('Hair').style.visibility = 'visible';
+  }else{
+    document.getElementById('Hair').style.visibility = 'hidden';
+  }
 }
+
 
 window.gohome = function (){
   var mainleft = document.getElementById('main-left');
@@ -215,6 +221,7 @@ const init = async () => {
         from: myAccount,
       });
     }
+    document.getElementById('SC').style.visibility = 'visible';
   }
 
   addSuitCase.onclick = async () =>{
@@ -223,6 +230,7 @@ const init = async () => {
         from: myAccount,
       });
     }
+    document.getElementById('LB').style.visibility = 'visible';
   }
 
   addCarkey.onclick = async () =>{
@@ -231,6 +239,7 @@ const init = async () => {
         from: myAccount,
       });
     }
+    document.getElementById('CK').style.visibility = 'visible';
   }
 
 
