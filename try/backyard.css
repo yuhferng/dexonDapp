@@ -1,0 +1,49 @@
+#Backyard{
+    visibility: hidden;
+}
+.backyard-main{
+    position: absolute;
+    right: 0vw;
+    top: 9.6vh;
+    height: 91vh;
+}
+
+.backyard-table{
+    position: absolute;
+    bottom: 0vh;
+    left: 0vw;
+    height: 70vh;
+}
+
+.hide{
+    visibility: hidden;
+}
+.backyard-button{
+    font-size: 3vh;
+    height: 5vh;
+    width: 10vw;
+    cursor: pointer;
+    border-radius: 1vh;
+}
+.claim-button{
+    position: absolute;
+    color: #e9a018;
+    border: 3px solid #e9a018;
+    left: 25vw;
+    bottom: 40vh;
+}
+.home-button{
+    position: absolute;
+    color: #e9a018;
+    border: 3px solid #e9a018;
+    background: transparent;
+    right: 5vw;
+    bottom: 15vh;
+    cursor: pointer;
+}
+.arrow{
+    position: absolute;
+    right: 2vw;
+    bottom: 15.5vh;
+    height: 4vh;
+}

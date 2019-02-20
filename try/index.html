@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>理工先生</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+		<script></script>
+		<link href="style.css" rel="stylesheet" type="text/css" media="all"/>
+		<link href="popups-style.css" rel="stylesheet" type="text/css" media="all"/>
+		<link href="backyard.css" rel="stylesheet" type="text/css" media="all"/>
+		<script type="text/javascript" src="index.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+	</head>
+	<body>
+		<header class="main-header" style="min-width: 1600px;">
+			<h1 class="name"><img src="https://i.imgur.com/dlJtjcd.png" title="source: imgur.com" alt="logo" height="62px" width="42px" float:left=""><a href="#">MakeMeWork</a></h1>
+			<ul class="main-nav-left">
+				<li><a href="#">遊戲規則</a></li>
+				<li><a href="#">白皮書</a></li>
+				<li><a href="#">團隊介紹</a></li>
+			</ul>
+			<ul class="main-nav-right">
+				<li class="work"><a href="#">下次工作時間：</a></li>
+				<li class="wording"><a href="#">繁體中文</a></li>
+			</ul>
+		</header><!--/.main-header-->  
+
+		
+	<div class="row" style="min-width:1600px;" >	
+		<div id = "main-left" class="primary col">
+			<div class="desk" style="position: relative;">
+				<img class="desk-img" src="https://i.imgur.com/DXjlm8f.png" title="source: imgur.com" alt="desk">
+			<div class="container1">
+				<p>公事包</p>
+				<p id="suitCaseAmount">數量：</p>
+				<button id ="addProperty1" 
+                class="table-button Briefcase-position"  
+                onclick="use_Briefcase()">使用</button>
+			</div><div class="container2">
+				<p>便當盒</p>
+				<p id="lunchBoxAmount">數量：</p>
+				<button id="addProperty2" 
+                class="table-button bandon-position"        
+                onclick="use_bandon()">使用</button>	
+			</div><div class="container3">
+				<p>車鑰匙</p>
+				<p id = "carKeyAmount">數量：</p>
+				<button id="addProperty3" 
+                class="table-button key-position"
+                onclick="use_key()">使用</button>
+			</div></div><!--/.desk-->
+			<div class="backyard" style="position: relative;right: 200px; top: 150px;">
+				<button id = "goBackYard" style="background-color:#FF7D12;color:white;position:absolute;left: 8vw; font-size:2.6vh;bottom: 11vh; width: 9vw; height: 5vh;border: 3px solid white; border-radius: 1vh; cursor: pointer;" onclick="goBackYard()">後院</button>
+			<img class="hook" src="https://i.imgur.com/DBOmTWp.png" title="source: imgur.com" height="20px" width="20px&quot;" alt="hook"></div><!--/.backyard-->  
+		</div><!--/.primary-->
+		
+		<div id = "main-right" class="secondary col">
+			<div class="banner">	
+				<img class="husband-img" src="https://i.imgur.com/ssHkzG6.png" title="source: imgur.com" alt="husband">
+			</div><!--/.banner-->
+			<ul class="shopping-nav">
+				<li class="shop">
+					<button id = "shopbut" class="right-button house-position" onclick="open_shop()">商店<img class="house" src="https://i.imgur.com/5PQuaRj.png" title="source: imgur.com" height="30px" width="40px" alt="house"></button>
+				</li>
+				<li class="balance">
+					<button id = "balbut" class="right-button balance-position" onclick="open_balance()">餘額<img class="money" src="https://i.imgur.com/YAwH3JF.png" title="source: imgur.com" height="40px" width="40px&quot;" alt="balance"></button>
+				</li>
+			</ul><!--/.shopping-nav-->  
+		</div><!--/.secondary-->
+
+        
+<!--
+        <div id = "popups-key" class = "popuping">
+            <img class="table-item-size"  src="https://i.imgur.com/TDWpoLg.png" title="source: imgur.com" height="62px" width="42px">
+        </div>
+-->     
+<!--
+        <div id = "popups-bandon" class = "popuping">
+            <img class="table-item-size" src="https://i.imgur.com/EghK5zc.png" title="source: imgur.com">
+        </div>
+        
+        <div id = "popups-Briefcase" class = "popuping">
+            <img class="table-item-size" src="https://i.imgur.com/l8gb9Eh.png" title="source: imgur.com">
+        </div>
+-->
+        
+		<div id = "popups-shop" class = "popup">
+			<div id = "shops" class='shop-popups'>
+				<div id ="title">
+					<button id ="quitshop" class ="closebutton" onclick="close_shop()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill
+                    ="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
+					<a class="text">商店</a>
+				</div>
+				<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+				<div id= "shopbellow">
+					<div id="shoppics">
+						<img class="shop-item-size" src="https://i.imgur.com/EghK5zc.png" title="source: imgur.com">
+						<img class="shop-item-size" src="https://i.imgur.com/l8gb9Eh.png" title="source: imgur.com">
+						<img class="shop-item-size carkey_pic" src="https://i.imgur.com/TDWpoLg.png" title="source: imgur.com">
+					</div>
+					<div>
+						<p class ="shoptext">便當盒</p>
+						<p class ="shoptext">公事包</p>
+						<p class ="shoptext">車鑰匙</p>
+					</div>
+					<div>
+						<p class ="price">50WKC</p>
+						<p class ="price">60WKC</p>
+						<p class ="price">1DXN</p>
+					</div>
+					<div id="buybutton">
+						<button id = "buyProperty1" class="purchase">購買</button>
+						<button id = "buyProperty2" class="purchase">購買</button>
+						<button id = "buyProperty3" class="purchase">購買</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id = "popups-balance" class = "popup">
+			<div id ="title">
+					<button id ="quitbal" class = "closebutton" onclick="close_balance()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></button>
+					<a class ="text">餘額</a>
+			</div>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<p class="wkcamount">WKC<a id = "wkcbalance" class="balnum">120</a></p>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<p class="wkcamount">DXN<a id = "dxnbalance" class="balnum">1.6 <button id= "withdraw" class="withdraw">提領</button></a></p>
+			<hr style="border:0;background-color:black;height:0.4vh;width:85%;">
+			<div id="lastgame">
+				<p class="last">上一場紀錄</p>
+				<p id ="lastgame_wkc" class="last">+100WKC</p>
+				<p id ="lastgame_dxn" class="last">+0.8DXN</p>
+			</div>
+		</div>
+
+		<div id = "Backyard" >
+			<img src="https://i.imgur.com/7NnssNd.png" title="source: imgur.com" class="backyard-main"/>
+			<div id = "ClaimTable" class="backyardtable">
+				<img id = "Hair" src="https://i.imgur.com/IuVFs07.png" title="source: imgur.com" class="backyard-table" />
+				<img id = "NoHair" src="https://i.imgur.com/CFR8knN.png" title="source: imgur.com" class="backyard-table hide"/>
+				<button id = "claimhere" class="claim-button backyard-button" onclick="Claim()">收成</button>
+				<button id = "gohome" class="home-button backyard-button" onclick="gohome()">回家</button>
+				<img src="https://i.imgur.com/le5cWAR.png" title="source: imgur.com" class="arrow"/>
+			</div>
+		</div>	
+	</div>
+	
+</body>
+</html>
+
+
