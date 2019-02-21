@@ -63,6 +63,11 @@ contract MakeWeWork {
         bool suitCase,
         bool carKey
     );
+    event ReturnProperty(
+        uint lunchbox,
+        uint suitcase,
+        uint carkey
+    );
     event WkcBalance(
         uint wkcamount
     );
@@ -75,24 +80,26 @@ contract MakeWeWork {
         require(msg.sender == Owner, "You can't use this function darling");
         _;
     }
-
-    function BuyProperty(string memory cargo, uint amount) public payable returns (uint256) {
+    function BuyProperty(string memory cargo, uint amount) public payable returns (uint256 wkcbal) {
         if(StringUtils.equal(cargo,"lunchBox")){
             require(gamerMap[msg.sender].wkcBalance >= amount*50,"You don't have enough token!");
             gamerMap[msg.sender].lunchBox += amount;
             gamerMap[msg.sender].wkcBalance -= amount * 50;
             emit BuyPropertyEvent("lunchBox",gamerMap[msg.sender].lunchBox);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);            
         }
         else if(StringUtils.equal(cargo,"suitCase")){
             require(gamerMap[msg.sender].wkcBalance >= amount*60,"You don't have enough token!");
             gamerMap[msg.sender].suitCase += amount;
             gamerMap[msg.sender].wkcBalance -= amount * 60;
-            emit BuyPropertyEvent("suitCase",amount);
+            emit BuyPropertyEvent("suitCase",gamerMap[msg.sender].suitCase);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);                        
         }
         else if(StringUtils.equal(cargo,"carKey")){
             require(msg.value == 1 ether*amount,"Hello");
             gamerMap[msg.sender].carKey += amount;
-            emit BuyPropertyEvent("carKey",amount);
+            emit BuyPropertyEvent("carKey",gamerMap[msg.sender].carKey);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);
         }
         else{
             revert("Nope!");
@@ -174,11 +181,11 @@ contract MakeWeWork {
         }
     }
 
-    function getPropertyNumbers() public view returns (uint256, uint256, uint256){
-        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey);
+    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal){
+        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey, gamerMap[msg.sender].wkcBalance);
     }
 
-    function getTableStatus() public view returns (bool, bool, bool, bool){
+    function getTableStatus() public view returns (bool table, bool tablelunchbox, bool tablesuitcase, bool tablecarkey){
         return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase, gamerMap[msg.sender].tableCarKey);
     }
 

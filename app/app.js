@@ -7,18 +7,8 @@ window.open_shop = function(){
   var popup = document.getElementById('popups-shop');
   popup.style.visibility = 'visible';
 }
-
-window.open_balance = function() {
-  var popup = document.getElementById('popups-balance');
-  popup.style.visibility = 'visible';
-}
 window.close_shop = function() {
   var popup = document.getElementById('popups-shop');
-  popup.style.visibility = 'hidden';
-}
-
-window.close_balance = function (){
-  var popup = document.getElementById('popups-balance');
   popup.style.visibility = 'hidden';
 }
 window.goBackYard = function (){
@@ -28,22 +18,27 @@ window.goBackYard = function (){
   mainright.style.visibility = 'hidden';
   var backyard = document.getElementById('Backyard');
   backyard.style.visibility = 'visible';
-  if ( document.getElementById('NoHair').style.visibility = 'hidden'){
-    document.getElementById('Hair').style.visibility = 'visible';
-  }else{
-    document.getElementById('Hair').style.visibility = 'hidden';
+  if (claimed == true){
+    document.getElementById('NoHair').style.visibility = 'visible';
   }
 }
-
-
+window.open_balance = function (){
+  var popup = document.getElementById('popups-balance');
+  popup.style.visibility = 'visible';
+}
+window.close_balance = function (){
+  var popup = document.getElementById('popups-balance');
+  popup.style.visibility = 'hidden';
+}
+let claimed = false;
 window.gohome = function (){
   var mainleft = document.getElementById('main-left');
   var mainright = document.getElementById('main-right');
   mainleft.style.visibility = 'visible';
   mainright.style.visibility = 'visible';
   var backyard = document.getElementById('Backyard');
-  backyard.style.visibility = 'hidden';
   document.getElementById('NoHair').style.visibility = 'hidden';
+  backyard.style.visibility = 'hidden';
 }
 
 window.Claim = function (){
@@ -57,6 +52,7 @@ window.Claim = function (){
 
 const init = async () => {
   
+  //Set up
   var Web3 = await import('web3');
 
   let httpHandler;
@@ -106,21 +102,27 @@ const init = async () => {
     contractWriter = new httpHandler.eth.Contract(abi, address);
   }
 
-  // DOM Element to display "value" in contract
-  
-  //const valueDisplayElement = document.getElementById('value');
-  
-  // Get current value and display it
-  
+  //---------------------------------------------------------------------------------------------//
+  //---------------------------------------------------------------------------------------------// 
+  //---------------------------------------------------------------------------------------------//
+  //GAME ITSELF
   //const roundindex = await contractReader.methods.roundidx().call();
-  const userProperty = await contractReader.methods.getPropertyNumbers().call();
   const amountofSuitCase = document.getElementById('suitCaseAmount');
   const amountofLunchBox = document.getElementById('lunchBoxAmount');
   const amountofCarKey = document.getElementById('carKeyAmount');
-  
-  amountofSuitCase.textContent = '數量：' + userProperty[0];
-  amountofLunchBox.textContent = '數量：' + userProperty[1];
-  amountofCarKey.textContent = '數量：' +userProperty[2];
+  contractWriter.methods.getPropertyNumbers().call({from: myAccount,}).then(data =>{
+    amountofLunchBox.textContent = '數量：' + data.lunchbox;
+    amountofSuitCase.textContent = '數量：' + data.suitcase;
+    amountofCarKey.textContent = '數量：' + data.carkey;
+    document.getElementById('wkcbalance').textContent = data.wkcbal;
+  });
+
+  /*contractReader.events.ReturnProperty({}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  });*/
   
   const tableProperty = await contractReader.methods.getTableStatus().call();
   const gamerRankOutput = await contractReader.methods.getGamerRank().call();
@@ -128,8 +130,98 @@ const init = async () => {
 
   //const wkcbalance = document.getElementById('wkcbalance');
   //wkcbalance.textContent = contractReader.methods.returnBalance().call();
-  console.log(UserWkcBal);
-  document.getElementById('wkcbalance').textContent = UserWkcBal;
+  //console.log(UserWkcBal);
+  //---------------------------------------------------------------------------------------------//
+  //---------------------------------------------------------------------------------------------//
+  //------------------------main-page buttons----------------------------------//
+  //----------------------------Pop ups----------------------------------------------------------//
+  /*const popupsbalance = document.getElementById('balbut');
+  const balanceclose = document.getElementById('quitbal');
+  popupsbalance.onclick = async() => {
+    var popup = document.getElementById('popups-balance');
+    popup.style.visibility = 'visible';
+  }
+  balanceclose.onclick = async() => {
+    var popup = document.getElementById('popups-balance');
+    popup.style.visibility = 'hidden';
+  }*/
+
+  //----------------------------Buy Stuff--------------------------------------------------------//
+  const buyLunchBox = document.getElementById('buyProperty1');
+  const buySuitCase = document.getElementById('buyProperty2');
+  const buyCarkey = document.getElementById('buyProperty3');
+  
+  buyLunchBox.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.BuyProperty('lunchBox', 1).send({
+        from: myAccount,
+      });
+    }
+  }
+  
+  buySuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.BuyProperty('suitCase', 1).send({
+        from: myAccount,
+      });
+    }
+  }
+  
+  buyCarkey.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.BuyProperty('carKey', 1).send({
+        from: myAccount, value: 1*10**18
+      });
+    }
+  }
+  
+  contractReader.events.BuyPropertyEvent({}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('[Event] BuyProperty ', data.returnValues.cargo,' ',data.returnValues.amount);
+    if (data.returnValues.cargo == 'lunchBox'){
+      amountofLunchBox.textContent = '數量：' + data.returnValues.amount;
+    }else if(data.returnValues.cargo == 'suitCase'){
+      amountofSuitCase.textContent = '數量：' + data.returnValues.amount;
+    }else if(data.returnValues.cargo == 'carKey'){
+      amountofCarKey.textContent = '數量：' + data.returnValues.amount;
+    }
+  });
+  //----------------------------Add Stuff--------------------------------------------------------//
+  const addSuitCase = document.getElementById('addProperty1');
+  const addLunchBox = document.getElementById('addProperty2');
+  const addCarkey = document.getElementById('addProperty3');
+  
+  addSuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('suitCase').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('SC').style.visibility = 'visible';
+  }
+  
+  addLunchBox.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('lunchBox').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('LB').style.visibility = 'visible';
+  }
+  
+  addCarkey.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('carKey').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('CK').style.visibility = 'visible';
+  }
+  //---------------------------------------------------------------------------------------------//
+  //---------------------------------------------------------------------------------------------//
   const claimwkc = document.getElementById('claimhere');
   claimwkc.onclick = async () =>{
     var claimbut = document.getElementById('claimhere');
@@ -139,6 +231,7 @@ const init = async () => {
     claimbut.style.color = 'red';
     claimbut.style.borderColor = 'black';
     claimbut.textContent = '???????';
+    claimed = true;
     if(contractWriter && myAccount){
       await contractWriter.methods.ClaimBackYard().send({
         from: myAccount,
@@ -167,88 +260,14 @@ const init = async () => {
   tableCarKey.textContent = tableProperty[3];
   gamerRankData.textContent = gamerRankOutput[0];*/
 
-  const buyLunchBox = document.getElementById('buyProperty1');
-  const buySuitCase = document.getElementById('buyProperty2');
-  const buyCarkey = document.getElementById('buyProperty3');
-
-  buyLunchBox.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.BuyProperty('lunchBox', 1).send({
-        from: myAccount,
-      });
-    }
-  }
-  contractReader.events.BuyPropertyEvent({}, (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log('[Event] BuyProperty ', data.returnValues.cargo);
-    const userProperty = contractReader.methods.getPropertyNumbers().call();
-    if (data.returnValues.cargo == 'lunchBox'){
-      amountofLunchBox.textContent = '數量：' +data.returnValues.amount;
-      console.log(data.returnValues.amount);
-    }else if(data.returnValues.cargo == 'suitCase'){
-      amountofSuitCase.textContent = '數量：' + data.returnValues.amount;
-    }else if(data.returnValues.cargo == 'carKey'){
-      amountofCarKey.textContent = '數量：' + data.returnValues.amount;
-    }
-  });
-
-  buySuitCase.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.BuyProperty('suitCase', 1).send({
-        from: myAccount,
-      });
-    }
-  }
-
-  buyCarkey.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.BuyProperty('carKey', 1).send({
-        from: myAccount, value: 1*10**18
-      });
-    }
-  }
-  
-  const addLunchBox = document.getElementById('addProperty1');
-  const addSuitCase = document.getElementById('addProperty2');
-  const addCarkey = document.getElementById('addProperty3');
-
-  addLunchBox.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('suitCase').send({
-        from: myAccount,
-      });
-    }
-    document.getElementById('SC').style.visibility = 'visible';
-  }
-
-  addSuitCase.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('lunchBox').send({
-        from: myAccount,
-      });
-    }
-    document.getElementById('LB').style.visibility = 'visible';
-  }
-
-  addCarkey.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('carKey').send({
-        from: myAccount,
-      });
-    }
-    document.getElementById('CK').style.visibility = 'visible';
-  }
 
 
 
   // DOM Element to display "value" in contract
-  const registerDisplayElement = document.getElementById('registered');
+  //const registerDisplayElement = document.getElementById('registered');
   // Get current value and display it
-  const val = await contractReader.methods.getPlayerInitStatus().call();
-  registerDisplayElement.textContent = val;
+  //const val = await contractReader.methods.getPlayerInitStatus().call();
+  //registerDisplayElement.textContent = val;
 
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
   contractReader.events.PlayerInitialized({}, (err, data) => {
