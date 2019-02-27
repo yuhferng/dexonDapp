@@ -2,7 +2,9 @@ import './src/css/popups-style.css';
 import './src/css/style.css';
 import './src/css/backyard.css';
 import { async } from 'q';
+import { type } from 'os';
 
+let claimed = false;
 window.open_shop = function(){
   var popup = document.getElementById('popups-shop');
   popup.style.visibility = 'visible';
@@ -19,18 +21,10 @@ window.goBackYard = function (){
   var backyard = document.getElementById('Backyard');
   backyard.style.visibility = 'visible';
   if (claimed == true){
+    document.getElementById('Hair').style.visibility = 'hidden';
     document.getElementById('NoHair').style.visibility = 'visible';
   }
 }
-window.open_balance = function (){
-  var popup = document.getElementById('popups-balance');
-  popup.style.visibility = 'visible';
-}
-window.close_balance = function (){
-  var popup = document.getElementById('popups-balance');
-  popup.style.visibility = 'hidden';
-}
-let claimed = false;
 window.gohome = function (){
   var mainleft = document.getElementById('main-left');
   var mainright = document.getElementById('main-right');
@@ -40,16 +34,28 @@ window.gohome = function (){
   document.getElementById('NoHair').style.visibility = 'hidden';
   backyard.style.visibility = 'hidden';
 }
+window.startTimer = function(duration, display) {
+  var timer = duration, minutes, seconds;
+  setInterval(function () {
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
 
-window.Claim = function (){
-  var claimbut = document.getElementById('claimhere');
-  claimbut.style.background = 'transparent';
-  claimbut.style.color = 'red';
-  claimbut.style.borderColor = 'black';
-  claimbut.textContent = ClaimCountDown;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (--timer < 0) {
+          timer = duration;
+      }
+  }, 1000);
 }
 
-
+window.changetowait = function(display){
+  display.style.background = 'transparent';
+  display.style.color = 'red';
+  display.style.borderColor = 'black';
+}
 const init = async () => {
   
   //Set up
@@ -110,19 +116,27 @@ const init = async () => {
   const amountofSuitCase = document.getElementById('suitCaseAmount');
   const amountofLunchBox = document.getElementById('lunchBoxAmount');
   const amountofCarKey = document.getElementById('carKeyAmount');
+  let LastClaim;
   contractWriter.methods.getPropertyNumbers().call({from: myAccount,}).then(data =>{
     amountofLunchBox.textContent = '數量：' + data.lunchbox;
     amountofSuitCase.textContent = '數量：' + data.suitcase;
     amountofCarKey.textContent = '數量：' + data.carkey;
     document.getElementById('wkcbalance').textContent = data.wkcbal;
-  });
-
-  /*contractReader.events.ReturnProperty({}, (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
+    let lastclaimnum = Number(data.lastclaim);
+    let nextav = lastclaimnum + 3600000;
+    if ( Date.now() <= nextav){
+      let diff = nextav - Date.now();
+      diff = Math.floor(diff / 1000);
+      console.log(diff);
+      startTimer(diff,document.getElementById('claimhere'));
+      changetowait(document.getElementById('claimhere'));
+      claimed = true;
+      document.getElementById('claimhere').disabled = true;
     }
-  });*/
+    LastClaim = new Date(lastclaimnum);
+  });
+  //countdown//
+  //------------//
   
   const tableProperty = await contractReader.methods.getTableStatus().call();
   const gamerRankOutput = await contractReader.methods.getGamerRank().call();
@@ -135,7 +149,7 @@ const init = async () => {
   //---------------------------------------------------------------------------------------------//
   //------------------------main-page buttons----------------------------------//
   //----------------------------Pop ups----------------------------------------------------------//
-  /*const popupsbalance = document.getElementById('balbut');
+  const popupsbalance = document.getElementById('balbut');
   const balanceclose = document.getElementById('quitbal');
   popupsbalance.onclick = async() => {
     var popup = document.getElementById('popups-balance');
@@ -144,7 +158,7 @@ const init = async () => {
   balanceclose.onclick = async() => {
     var popup = document.getElementById('popups-balance');
     popup.style.visibility = 'hidden';
-  }*/
+  }
 
   //----------------------------Buy Stuff--------------------------------------------------------//
   const buyLunchBox = document.getElementById('buyProperty1');
@@ -224,19 +238,20 @@ const init = async () => {
   //---------------------------------------------------------------------------------------------//
   const claimwkc = document.getElementById('claimhere');
   claimwkc.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.ClaimBackYard(Date.now()).send({
+        from: myAccount,
+      });
+    }else{
+      return;
+    }
     var claimbut = document.getElementById('claimhere');
     document.getElementById('Hair').style.visibility = 'hidden';
     document.getElementById('NoHair').style.visibility = 'visible';
-    claimbut.style.background = 'transparent';
-    claimbut.style.color = 'red';
-    claimbut.style.borderColor = 'black';
-    claimbut.textContent = '???????';
+    changetowait(claimbut);
     claimed = true;
-    if(contractWriter && myAccount){
-      await contractWriter.methods.ClaimBackYard().send({
-        from: myAccount,
-      });
-    }
+    startTimer(3600,claimbut);
+    claimbut.disabled = true;
   }
   contractReader.events.WkcBalance({}, (err, data) => {
     if (err) {

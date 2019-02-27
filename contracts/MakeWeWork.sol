@@ -107,13 +107,14 @@ contract MakeWeWork {
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function ClaimBackYard() public returns (uint256) {
+    function ClaimBackYard(uint time) public returns (uint256) {
         //uint gain_this_time = (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
         //gamerMap[msg.sender].wkcBalance += gain_this_time;
-        gamerMap[msg.sender].wkcBalance += 314159265;
+        gamerMap[msg.sender].wkcBalance += 200;
         gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex += 1;
+        gamerMap[msg.sender].lastClaimFromBY = time;
         //emit ClaimWKCfromBackYard(gain_this_time,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
-        emit ClaimWKCfromBackYard(314159265,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
+        emit ClaimWKCfromBackYard(200,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
         emit WkcBalance(gamerMap[msg.sender].wkcBalance);
         return gamerMap[msg.sender].wkcBalance;
     }
@@ -181,12 +182,14 @@ contract MakeWeWork {
         }
     }
 
-    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal){
-        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey, gamerMap[msg.sender].wkcBalance);
+    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal,uint lastclaim){
+        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey, gamerMap[msg.sender].wkcBalance,
+        gamerMap[msg.sender].lastClaimFromBY);
     }
 
     function getTableStatus() public view returns (bool table, bool tablelunchbox, bool tablesuitcase, bool tablecarkey){
-        return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase, gamerMap[msg.sender].tableCarKey);
+        return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase,
+        gamerMap[msg.sender].tableCarKey);
     }
 
     function getPlayerInitStatus() public view returns(bool init) {
