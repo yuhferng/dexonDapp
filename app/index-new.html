@@ -1,0 +1,109 @@
+</<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>理工先生</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="./new-src/css/shop.css">
+	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" media="screen" href="./new-src/css/mainpage.css">
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+	<style>
+		.backyardimg{
+			height: 49.3vh;
+		}
+		.weed{
+			position: absolute;
+			height: 38.6vh;
+			background-color: rgb(197,255,255);
+			bottom: 11vh;
+		}
+	</style>
+</head>
+<body style="background-color:#FF7D12;">
+	<div class="main-header">
+		<img src="https://i.imgur.com/dlJtjcd.png" title="source: imgur.com" alt="logo" class="headerimg">
+		<span class="headertext">MakeMeWork</span>
+	</div>
+
+	<div id ="main" hidden>
+		<div class="main-page">
+			<span class="next-round enroll">下一輪時間：</span>
+			<button class="enrollbut enroll">參加</button>
+			<div>
+				<img class="husband-img" src="https://i.imgur.com/ssHkzG6.png" title="source: imgur.com" alt="husband">
+				<img class="desk-img"src="https://i.imgur.com/zYftDLd.png" title="source: imgur.com" />
+			</div>
+		</div>
+	</div>
+
+	<div id="status" class="status" hidden>
+		<div id="shop" class="shop">
+			<div id ="shop-list">
+				<img class="shop-item" src="https://i.imgur.com/EghK5zc.png" title="source: imgur.com">
+				<img class="shop-item" src="https://i.imgur.com/l8gb9Eh.png" title="source: imgur.com">
+				<img class="shop-item carkey_pic" src="https://i.imgur.com/TDWpoLg.png" title="source: imgur.com" style="padding-left:4vw;">
+			</div>
+			<div>
+				<p class="shop-text">便當盒<a class="price">50 WKC</a></p>
+				<p class="shop-text">公事包<a class="price">60 WKC</a></p>
+				<p class="shop-text">車鑰匙<a class="price">1  DXN</a></p>
+			</div>
+			<div id="buybutton">
+				<button class="purchase">購買</button>
+				<button class="purchase">購買</button>
+				<button class="purchase">購買</button>
+			</div>
+		</div>
+		<hr>
+		<div id ="balance">
+			<a class ="bal-title">餘額</a>
+		</div>
+		<hr style="width: 73%;">
+		<div>
+			<p class="bal-text">WKC<a class="amount">0</a></p>
+		</div>
+		<hr style="width: 73%;">
+		<div>
+			<p class="bal-text" style="margin-left:32vw;">DXN<a class="amount">1.6</a>
+			<button class="purchase" style="width:30%; height: 6%; padding: 0; margin:0 0 0 5vw;">提領</button>
+			</p>
+		</div>
+		<hr style="width: 73%;">
+		<div>
+			<p class="last-game">上一場紀錄</p>
+			<p class="last-game"><a id="lastawardwkc">+100WKC</a><a id="lastawarddxn"> +0.8DXN</a></p>
+		</div>
+	</div>
+
+	<div style="background-color: rgb(197,255,255)">
+		<img class="backyardimg" src="https://i.imgur.com/7NnssNd.png?1" title="source: imgur.com" />
+		<img class="weed"src="https://i.imgur.com/IuVFs07.png" title="source: imgur.com" />
+	</div>
+
+	<div class="nav-bar">
+		<hr style="background-color: white; height: 0.7vh; margin: 0 0 1vh 0; border:none;">
+		<button class="nav-button">後院</button>
+		<button id="mainbut" class="nav-button">主頁</button>
+		<button id="shopbut" class="nav-button">商店</button>
+	</div>
+	<script>
+			let main = $("#main");
+			let status = $("#status");
+			
+			let mainbut = $("#mainbut");
+			let shopbut = $("#shopbut");
+	
+			mainbut.on('click',function(){
+				main.show();
+				status.hide();
+				}
+			);
+			shopbut.on('click',function(){
+				main.hide();
+				status.show();
+			});
+		</script>
+</body>
+</html>

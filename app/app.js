@@ -1,6 +1,7 @@
 import './src/css/popups-style.css';
 import './src/css/style.css';
 import './src/css/backyard.css';
+import './src/css/portrait.css';
 import { async } from 'q';
 import { type } from 'os';
 

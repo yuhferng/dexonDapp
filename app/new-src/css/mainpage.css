@@ -1,0 +1,68 @@
+body{
+    margin: 0 0 0 0;
+}
+.main-header{
+    background-color: white;
+    height: 10%;
+    margin: 0 0 0 0;
+}
+.nav-bar{
+    background-color: white;
+    height: 11%;
+    width: 100%;
+    position:absolute;
+    bottom: 0%;
+}
+.nav-button{
+    font-size: 3vh;
+    height: 60%;
+    width: 30%;
+    border:white 3px solid;
+    border-radius: 2vh;
+    margin: 0.2vh 1vw 0 1vw;
+    background-color: #FF7D12;
+    color: white;
+}
+.headerimg{
+    height: 80%;
+    margin:2% 0 0 10%;
+}
+.headertext{
+    font-size: 5.8vh;
+    margin: 0% 0 0 0;
+    color: #FF7D12;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bolder;
+    position: absolute;
+    top: 2.2%;
+    right: 12%;
+}
+.husband-img{
+    height: 50vh;
+    margin:9vh 0 0 14vw;
+}
+.desk-img{
+    height: 36vh;
+    position:absolute;
+    left: 1.2vw;
+    bottom: 5vh;
+}
+.enroll{
+    height: 4%;
+    font-size: 3vh;
+    background-color: #FF7D12;
+    border: black 0.3vh solid;
+    border-radius: 2vh;
+}
+.next-round{
+    position: absolute;
+    margin: 2vh 2vw 1vh 13vw;
+    padding: 0.3vh 7vw 0.3vh 7vw;
+}
+.enrollbut{
+    position: absolute;
+    right: 10%;
+    height: 5%;
+    margin: 2vh 2vw 1vh 13vw;
+    padding: 0.3vh 7vw 0.3vh 7vw;
+}
