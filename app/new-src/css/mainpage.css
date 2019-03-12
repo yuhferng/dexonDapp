@@ -38,31 +38,69 @@ body{
     right: 12%;
 }
 .husband-img{
-    height: 50vh;
-    margin:9vh 0 0 14vw;
+    height: 76vh;
+    margin:9vh 0 0 25vw;
 }
-.desk-img{
-    height: 36vh;
+.carkey{
+    height: 16vh;
     position:absolute;
-    left: 1.2vw;
-    bottom: 5vh;
+    top: 31vh;
+    left: 42vw;
 }
 .enroll{
     height: 4%;
-    font-size: 3vh;
+    font-size: 2.5vh;
     background-color: #FF7D12;
     border: black 0.3vh solid;
-    border-radius: 2vh;
+    border-radius: 1.4vh;
 }
 .next-round{
     position: absolute;
-    margin: 2vh 2vw 1vh 13vw;
-    padding: 0.3vh 7vw 0.3vh 7vw;
+    width: 60%;
+    margin: 1.5vh 2vw 1vh 6.7vw;
+    padding: 1vh 10vw 0.6vh 11vw;
 }
 .enrollbut{
     position: absolute;
-    right: 10%;
-    height: 5%;
+    font-size: 2.3vh;
+    right: 4.5%;
+    top: 17%;
+    height: 5.5%;
+    border-color: white;
+    color:#FF7D12;
+    background-color: white;
     margin: 2vh 2vw 1vh 13vw;
-    padding: 0.3vh 7vw 0.3vh 7vw;
+    padding: 0.3vh 4vw 0.3vh 4vw;
+}
+
+/*--------backyard-------*/
+.backyardimg{
+    height: 49.3vh;
+}
+.weed{
+    position: absolute;
+    height: 38.6vh;
+    background-color: rgb(197,255,255);
+    bottom: 11vh;
+}
+.suitcase{
+    height: 14%;
+    position:absolute;
+    left:14.6%;
+    bottom: 18%;
+}
+.lunchbox{
+    height: 13%;
+    position: absolute;
+    right: 20%;
+    bottom: 20.8%;
+}
+.claim-button{
+    position: absolute;
+    height: 6.3%;
+    top: 43%;
+    right: 34%;
+    color: #e9a018;
+    background-color: white;
+    border-color: #e9a018;
 }
