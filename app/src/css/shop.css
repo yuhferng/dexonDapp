@@ -1,0 +1,72 @@
+.status{
+    height: 75%;
+    width: 91%;
+    background-color: #1add2afd;
+    border:black 0.5vh solid;
+    border-radius: 2vh;
+    margin: 2vh 1vh 1vh 2vh;
+    position: absolute;
+}
+#shop{
+    display: flex;
+    height: 40%;
+}
+#shop #shop-list{
+    width: 28%;
+}
+.shop-item{
+    height: 22%;
+    margin: 2vh 0 1vh 8vw;
+}
+.shop-text{
+    font-size: 2.6vh;
+    font-weight: bolder;
+    margin: 3.9vh 2vw 6.3vh 2vw;
+}
+.price{
+    color: white !important;
+    font-weight: bolder;
+    margin-left: 4vw;
+}
+#shop #buybutton{
+    width: 20%;
+}
+.purchase{
+    color: white;
+    font-size: 2.2vh;
+    font-weight: bolder;
+    height: 15%;
+    width: 100%;
+    background-color: #1add2afd;
+    border:white 0.3vh solid;
+    border-radius: 4vh;
+    margin: 2.5vh 0 0 1vh;
+}
+.bal-title{
+    font-size: 3vh;
+    margin-left: 43%;
+}
+hr{
+    height: 0.4vh;
+    width: 86%;
+    background-color:black;
+    border:none;
+}
+.bal-text{
+    font-size: 2.6vh;
+    margin: 0 0 0 35%;
+    font-weight: bolder;
+}
+.amount{
+    margin-left: 10%;
+    color: white;
+}
+.last-game{
+    text-align: center;
+    font-weight: 400;
+    font-size: 3vh;
+}
+.amount{
+    font-size: 2.2vh;
+    margin-left: 3vw;
+}

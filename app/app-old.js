@@ -1,9 +1,40 @@
-import './src/css/mainpage.css';
-import './src/css/shop.css'
+import './src/css/popups-style.css';
+import './src/css/style.css';
+import './src/css/backyard.css';
+import './src/css/portrait.css';
 import { async } from 'q';
 import { type } from 'os';
 
 let claimed = false;
+window.open_shop = function(){
+  var popup = document.getElementById('popups-shop');
+  popup.style.visibility = 'visible';
+}
+window.close_shop = function() {
+  var popup = document.getElementById('popups-shop');
+  popup.style.visibility = 'hidden';
+}
+window.goBackYard = function (){
+  var mainleft = document.getElementById('main-left');
+  var mainright = document.getElementById('main-right');
+  mainleft.style.visibility = 'hidden';
+  mainright.style.visibility = 'hidden';
+  var backyard = document.getElementById('Backyard');
+  backyard.style.visibility = 'visible';
+  if (claimed == true){
+    document.getElementById('Hair').style.visibility = 'hidden';
+    document.getElementById('NoHair').style.visibility = 'visible';
+  }
+}
+window.gohome = function (){
+  var mainleft = document.getElementById('main-left');
+  var mainright = document.getElementById('main-right');
+  mainleft.style.visibility = 'visible';
+  mainright.style.visibility = 'visible';
+  var backyard = document.getElementById('Backyard');
+  document.getElementById('NoHair').style.visibility = 'hidden';
+  backyard.style.visibility = 'hidden';
+}
 window.startTimer = function(duration, display) {
   var timer = duration, minutes, seconds;
   setInterval(function () {
@@ -29,21 +60,6 @@ window.changetowait = function(display){
 const init = async () => {
   
   //Set up
-  const main = document.getElementById("main");
-  const status = document.getElementById("status");
-  const backyard = document.getElementById("backyard");
-
-  const mainbut = document.getElementById("mainbut");
-  const shopbut = document.getElementById("shopbut");
-  const backyardbut = document.getElementById("backyardbut");
-
-  function startahead(){
-    main.style.display = 'inline';
-    status.style.display = 'none';
-    backyard.style.display = 'none';
-  }
-  startahead();
-  //setupbc
   var Web3 = await import('web3');
 
   let httpHandler;
@@ -98,28 +114,14 @@ const init = async () => {
   //---------------------------------------------------------------------------------------------//
   //GAME ITSELF
   //const roundindex = await contractReader.methods.roundidx().call();
-  const amountofSuitCase = document.getElementById('SCamount');
-  const amountofLunchBox = document.getElementById('LBamount');
-  const amountofCarKey = document.getElementById('CKamount');
-
-  const carkeyimg = document.getElementById('carkeyimg');
-  const suitcaseimg = document.getElementById('suitcaseimg');
-  const lunchboximg = document.getElementById('lunchboximg');
-
+  const amountofSuitCase = document.getElementById('suitCaseAmount');
+  const amountofLunchBox = document.getElementById('lunchBoxAmount');
+  const amountofCarKey = document.getElementById('carKeyAmount');
   let LastClaim;
   contractWriter.methods.getPropertyNumbers().call({from: myAccount,}).then(data =>{
     amountofLunchBox.textContent = '數量：' + data.lunchbox;
     amountofSuitCase.textContent = '數量：' + data.suitcase;
     amountofCarKey.textContent = '數量：' + data.carkey;
-    if(data.lunchbox > 0){
-      lunchboximg.style.visibility='visible';
-    }
-    if(data.suitcase > 0){
-      suitcaseimg.style.visibility='visible';
-    }
-    if(data.carkey > 0){
-      carkeyimg.style.visibility='visible';
-    }
     document.getElementById('wkcbalance').textContent = data.wkcbal;
     let lastclaimnum = Number(data.lastclaim);
     let nextav = lastclaimnum + 3600000;
@@ -127,10 +129,10 @@ const init = async () => {
       let diff = nextav - Date.now();
       diff = Math.floor(diff / 1000);
       console.log(diff);
-      startTimer(diff,document.getElementById('claimbutton'));
-      changetowait(document.getElementById('claimbutton'));
+      startTimer(diff,document.getElementById('claimhere'));
+      changetowait(document.getElementById('claimhere'));
       claimed = true;
-      document.getElementById('claimbutton').disabled = true;
+      document.getElementById('claimhere').disabled = true;
     }
     LastClaim = new Date(lastclaimnum);
   });
@@ -148,31 +150,21 @@ const init = async () => {
   //---------------------------------------------------------------------------------------------//
   //------------------------main-page buttons----------------------------------//
   //----------------------------Pop ups----------------------------------------------------------//
-  mainbut.onclick = async() => {
-    main.style.display = 'inline';
-    status.style.display = 'none';
-    backyard.style.display = 'none';
+  const popupsbalance = document.getElementById('balbut');
+  const balanceclose = document.getElementById('quitbal');
+  popupsbalance.onclick = async() => {
+    var popup = document.getElementById('popups-balance');
+    popup.style.visibility = 'visible';
   }
-  shopbut.onclick = async() => {
-    status.style.display = 'inline';
-    main.style.display = 'none';
-    backyard.style.display = 'none';
-  }
-  backyardbut.onclick = async() =>{
-    backyard.style.display = 'inline';
-    main.style.display = 'none';
-    status.style.display = 'none';
-    if(claimed == false){
-      document.getElementById('hair').visibility="hidden";
-    }else{
-      document.getElementById('Nohair').visibility="hidden";
-    }
+  balanceclose.onclick = async() => {
+    var popup = document.getElementById('popups-balance');
+    popup.style.visibility = 'hidden';
   }
 
   //----------------------------Buy Stuff--------------------------------------------------------//
-  const buyLunchBox = document.getElementById('buyLB');
-  const buySuitCase = document.getElementById('buySC');
-  const buyCarkey = document.getElementById('buyCK');
+  const buyLunchBox = document.getElementById('buyProperty1');
+  const buySuitCase = document.getElementById('buyProperty2');
+  const buyCarkey = document.getElementById('buyProperty3');
   
   buyLunchBox.onclick = async () =>{
     if(contractWriter && myAccount){
@@ -212,23 +204,55 @@ const init = async () => {
       amountofCarKey.textContent = '數量：' + data.returnValues.amount;
     }
   });
+  //----------------------------Add Stuff--------------------------------------------------------//
+  const addSuitCase = document.getElementById('addProperty1');
+  const addLunchBox = document.getElementById('addProperty2');
+  const addCarkey = document.getElementById('addProperty3');
+  
+  addSuitCase.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('suitCase').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('SC').style.visibility = 'visible';
+  }
+  
+  addLunchBox.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('lunchBox').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('LB').style.visibility = 'visible';
+  }
+  
+  addCarkey.onclick = async () =>{
+    if(contractWriter && myAccount){
+      await contractWriter.methods.addRequirement('carKey').send({
+        from: myAccount,
+      });
+    }
+    document.getElementById('CK').style.visibility = 'visible';
+  }
   //---------------------------------------------------------------------------------------------//
   //---------------------------------------------------------------------------------------------//
-  const claimbutton = document.getElementById('claimbutton');
-  claimbutton.onclick = async () =>{
+  const claimwkc = document.getElementById('claimhere');
+  claimwkc.onclick = async () =>{
     if(contractWriter && myAccount){
       await contractWriter.methods.ClaimBackYard(Date.now()).send({
         from: myAccount,
-    });
+      });
     }else{
       return;
     }
+    var claimbut = document.getElementById('claimhere');
     document.getElementById('Hair').style.visibility = 'hidden';
     document.getElementById('NoHair').style.visibility = 'visible';
-    changetowait(claimbutton);
+    changetowait(claimbut);
     claimed = true;
-    startTimer(3600,claimbutton);
-    claimbutton.disabled = true;
+    startTimer(3600,claimbut);
+    claimbut.disabled = true;
   }
   contractReader.events.WkcBalance({}, (err, data) => {
     if (err) {

@@ -1,0 +1,117 @@
+body{
+    margin: 0 0 0 0;
+}
+.main-header{
+    background-color: white;
+    height: 10%;
+    margin: 0 0 0 0;
+}
+.nav-bar{
+    background-color: white;
+    height: 11%;
+    width: 100%;
+    position:absolute;
+    bottom: 0%;
+}
+.nav-button{
+    font-size: 3vh;
+    height: 60%;
+    width: 30%;
+    border:white 3px solid;
+    border-radius: 2vh;
+    margin: 0.2vh 1vw 0 1vw;
+    background-color: #FF7D12;
+    color: white;
+}
+.headerimg{
+    height: 80%;
+    margin:2% 0 0 10%;
+}
+.headertext{
+    font-size: 5.8vh;
+    margin: 0% 0 0 0;
+    color: #FF7D12;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bolder;
+    position: absolute;
+    top: 2.2%;
+    right: 12%;
+}
+.husband-img{
+    height: 76vh;
+    margin:9vh 0 0 25vw;
+}
+.carkey{
+    height: 16vh;
+    position:absolute;
+    top: 31vh;
+    left: 42vw;
+    visibility: hidden;
+}
+.next-round{
+    position: absolute;
+    width: 90%;
+    margin: 1.5vh 2vw 1vh 5vw;
+    padding: 1vh 11vw 0.6vh 16vw;
+}
+.enroll-bar{
+    height: 6%;
+    font-size: 2.5vh;
+    background-color: #FF7D12;
+    border: black 0.3vh solid;
+    border-radius: 1.4vh;
+}
+.enrollbut{
+    position: absolute;
+    font-size: 2.3vh;
+    right: 4.5%;
+    top: 17%;
+    height: 5.5%;
+    border-color: white;
+    color:#FF7D12;
+    background-color: white;
+    margin: 2vh 2vw 1vh 13vw;
+    padding: 0.3vh 4vw 0.3vh 4vw;
+}
+.levelbar{
+    width: 32%;
+    position: absolute;
+    top: 20%;
+    left: 6%;
+    background-color:transparent;
+    border: black 0.3vh solid;
+}
+/*--------backyard-------*/
+.backyardimg{
+    height: 49.3vh;
+}
+.weed{
+    position: absolute;
+    height: 38.6vh;
+    background-color: rgb(197,255,255);
+    bottom: 11vh;
+}
+.suitcase{
+    height: 14%;
+    position:absolute;
+    left:14.6%;
+    bottom: 18%;
+    visibility: hidden;
+}
+.lunchbox{
+    height: 13%;
+    position: absolute;
+    right: 20%;
+    bottom: 20.8%;
+    visibility: hidden;
+}
+.claim-button{
+    position: absolute;
+    height: 6.3%;
+    font-size: 3.5vh;
+    top: 43%;
+    right: 34%;
+    color: #e9a018;
+    background-color: white;
+    border-color: #e9a018;
+}

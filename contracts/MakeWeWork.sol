@@ -119,26 +119,12 @@ contract MakeWeWork {
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function addRequirement(string memory putin) public {
-        if (StringUtils.equal(putin,"lunchBox")){
-            require(gamerMap[msg.sender].lunchBox >= 1 && gamerMap[msg.sender].tableLunchBox == false,"You don't have enough LunchBox");
-            gamerMap[msg.sender].tableLunchBox = true;
-            }
-        else if (StringUtils.equal(putin,"suitCase")){
-            require(gamerMap[msg.sender].suitCase >= 1 && gamerMap[msg.sender].tableSuitCase == false,"You don't have enough SuitCase");
-            gamerMap[msg.sender].tableSuitCase = true;
-            }
-        else if (StringUtils.equal(putin,"carKey")){
-            require(gamerMap[msg.sender].carKey >= 1 && gamerMap[msg.sender].tableCarKey == false,"You don't have enough CarKey");
-            gamerMap[msg.sender].tableCarKey = true;
-            }
-        emit RequirementStatus(gamerMap[msg.sender].tableLunchBox,gamerMap[msg.sender].tableSuitCase,gamerMap[msg.sender].tableCarKey);
-        if 
-        (
-        gamerMap[msg.sender].tableCarKey == true && gamerMap[msg.sender].tableLunchBox == true && gamerMap[msg.sender].tableSuitCase == true
-        ){
-            gamerMap[msg.sender].table = true;
-        }
+    function CheckRequirement(address from) public {
+        require(gamerMap[from].lunchBox>0 && gamerMap[from].suitCase>0 && gamerMap[from].carKey>0, "You don't own enough stuff");
+        gamerMap[from].table = true;
+        gamerMap[from].lunchBox--;
+        gamerMap[from].suitCase--;
+        gamerMap[from].carKey--;
     }
 
     function GoToWorkThisRound() public returns (address) {
