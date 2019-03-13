@@ -180,6 +180,7 @@ const init = async () => {
         from: myAccount,
       });
     }
+    lunchboximg.style.visibility='visible';
   }
   
   buySuitCase.onclick = async () =>{
@@ -188,6 +189,7 @@ const init = async () => {
         from: myAccount,
       });
     }
+    suitcaseimg.style.visibility='visible';
   }
   
   buyCarkey.onclick = async () =>{
@@ -196,6 +198,7 @@ const init = async () => {
         from: myAccount, value: 1*10**18
       });
     }
+    carkeyimg.style.visibility='visible';
   }
   
   contractReader.events.BuyPropertyEvent({}, (err, data) => {
@@ -238,19 +241,6 @@ const init = async () => {
     console.log('[Event] WkcBalance', data.returnValues.wkcamount);
     document.getElementById('wkcbalance').textContent = data.returnValues.wkcamount;
   });
-
-  /*const table = document.getElementById('table');
-  const tableSuitCase = document.getElementById('tableSuitCase');
-  const tableLunchBox = document.getElementById('tableLunchBox');
-  const tableCarKey = document.getElementById('tableCarKey');
-  const gamerRankData = document.getElementById('gamerRankData');
-  
-  
-  table.textContent = tableProperty[0];
-  tableSuitCase.textContent = tableProperty[1];
-  tableLunchBox.textContent = tableProperty[2];
-  tableCarKey.textContent = tableProperty[3];
-  gamerRankData.textContent = gamerRankOutput[0];*/
 
 
 
