@@ -65,7 +65,7 @@ const init = async () => {
 
     switch(netId) {
       case 5777: // If DekuSan is using local rpc
-        return 'ws://localhost:8545';
+        return 'ws://localhost:7545';
       // If DekuSan is connect to testnet or not availble
       case 238:
       default:
@@ -162,10 +162,12 @@ const init = async () => {
     backyard.style.display = 'inline';
     main.style.display = 'none';
     status.style.display = 'none';
-    if(claimed == false){
-      document.getElementById('hair').visibility="hidden";
+    console.log(claimed);
+    if(claimed == true){
+      console.log(document.getElementById('hair').style.visibility = 'hidden');
+      document.getElementById('hair').style.visibility="hidden";
     }else{
-      document.getElementById('Nohair').visibility="hidden";
+      document.getElementById('Nohair').style.visibility="hidden";
     }
   }
 
@@ -226,8 +228,8 @@ const init = async () => {
     }else{
       return;
     }
-    document.getElementById('Hair').style.visibility = 'hidden';
-    document.getElementById('NoHair').style.visibility = 'visible';
+    document.getElementById('hair').style.visibility = 'hidden';
+    document.getElementById('Nohair').style.visibility = 'visible';
     changetowait(claimbutton);
     claimed = true;
     startTimer(3600,claimbutton);

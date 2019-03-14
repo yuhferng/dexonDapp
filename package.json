@@ -7,8 +7,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "dexon-truffle migrate",
+    "migrate": "dexon-truffle migrate --network development --reset",
     "migrate:dexontestnet": "dexon-truffle migrate --network dexonTestnet --reset",
+    "migrate:ganache":"dexon-truffle migrate --network ganachegui --reset",
     "ganache-cli": "dexon-ganache-cli",
     "rpc": "node ./run-ganache.js",
     "build:webapp": "rm -rf dist && webpack --progress --mode production && cd dist && python -m SimpleHTTPServer"
@@ -26,6 +27,8 @@
   "description": "",
   "dependencies": {
     "ethereum-input-data-decoder": "0.0.13",
+    "jQuery": "^1.7.4",
+    "jsdom": "^14.0.0",
     "web3": "1.0.0-beta.37"
   },
   "devDependencies": {
