@@ -122,10 +122,13 @@ const init = async () => {
     }
     document.getElementById('wkcbalance').textContent = data.wkcbal;
     let lastclaimnum = Number(data.lastclaim);
-    let nextav = lastclaimnum + 3600000;
-    if ( Date.now() <= nextav){
-      let diff = nextav - Date.now();
-      diff = Math.floor(diff / 1000);
+    let now = Number(data.time);
+    let nextav = lastclaimnum + 3600;
+    console.log(nextav);
+    console.log(now);
+    console.log(lastclaimnum);
+    if ( now <= nextav){
+      let diff = nextav - now;
       console.log(diff);
       startTimer(diff,document.getElementById('claimbutton'));
       changetowait(document.getElementById('claimbutton'));
@@ -134,16 +137,6 @@ const init = async () => {
     }
     LastClaim = new Date(lastclaimnum);
   });
-  //countdown//
-  //------------//
-  
-  const tableProperty = await contractReader.methods.getTableStatus().call();
-  const gamerRankOutput = await contractReader.methods.getGamerRank().call();
-  const UserWkcBal = await contractReader.methods.returnBalance().call();
-
-  //const wkcbalance = document.getElementById('wkcbalance');
-  //wkcbalance.textContent = contractReader.methods.returnBalance().call();
-  //console.log(UserWkcBal);
   //---------------------------------------------------------------------------------------------//
   //---------------------------------------------------------------------------------------------//
   //------------------------main-page buttons----------------------------------//
@@ -162,9 +155,7 @@ const init = async () => {
     backyard.style.display = 'inline';
     main.style.display = 'none';
     status.style.display = 'none';
-    console.log(claimed);
     if(claimed == true){
-      console.log(document.getElementById('hair').style.visibility = 'hidden');
       document.getElementById('hair').style.visibility="hidden";
     }else{
       document.getElementById('Nohair').style.visibility="hidden";
@@ -222,7 +213,7 @@ const init = async () => {
   const claimbutton = document.getElementById('claimbutton');
   claimbutton.onclick = async () =>{
     if(contractWriter && myAccount){
-      await contractWriter.methods.ClaimBackYard(Date.now()).send({
+      await contractWriter.methods.ClaimBackYard().send({
         from: myAccount,
     });
     }else{
@@ -244,6 +235,15 @@ const init = async () => {
     document.getElementById('wkcbalance').textContent = data.returnValues.wkcamount;
   });
 
+  ///const readybut = document.getElementById('readybut');
+  ///readybut.onclick = async ()=>{
+  ///  if(contractWriter && myAccount){
+  ///    await contractWriter.methods.CheckRequirement()
+  ///    .send({from:myAccount})
+  ///  }else{
+  ///    return;
+  ///  }
+  ///}
 
 
 

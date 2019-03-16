@@ -28,9 +28,6 @@ contract MakeWeWork {
         uint suitCase;
         uint carKey;
         bool table;
-        bool tableLunchBox;
-        bool tableSuitCase;
-        bool tableCarKey;
         uint lastClaimFromBY;
         mapping(uint=>gamerStatusThisRound) thisRound;
     }
@@ -107,24 +104,25 @@ contract MakeWeWork {
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function ClaimBackYard(uint time) public returns (uint256) {
+    function ClaimBackYard() public returns (uint256) {
+        require(block.timestamp >= gamerMap[msg.sender].lastClaimFromBY + 3600, "You couldn't claim your wkc yet");
         //uint gain_this_time = (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
         //gamerMap[msg.sender].wkcBalance += gain_this_time;
         gamerMap[msg.sender].wkcBalance += 200;
         gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex += 1;
-        gamerMap[msg.sender].lastClaimFromBY = time;
+        gamerMap[msg.sender].lastClaimFromBY = block.timestamp;
         //emit ClaimWKCfromBackYard(gain_this_time,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
         emit ClaimWKCfromBackYard(200,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
         emit WkcBalance(gamerMap[msg.sender].wkcBalance);
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function CheckRequirement(address from) public {
-        require(gamerMap[from].lunchBox>0 && gamerMap[from].suitCase>0 && gamerMap[from].carKey>0, "You don't own enough stuff");
-        gamerMap[from].table = true;
-        gamerMap[from].lunchBox--;
-        gamerMap[from].suitCase--;
-        gamerMap[from].carKey--;
+    function CheckRequirement() public {
+        require(gamerMap[msg.sender].lunchBox>0 && gamerMap[msg.sender].suitCase>0 && gamerMap[msg.sender].carKey>0, "You don't own enough stuff");
+        gamerMap[msg.sender].table = true;
+        gamerMap[msg.sender].lunchBox--;
+        gamerMap[msg.sender].suitCase--;
+        gamerMap[msg.sender].carKey--;
     }
 
     function GoToWorkThisRound() public returns (address) {
@@ -168,15 +166,12 @@ contract MakeWeWork {
         }
     }
 
-    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal,uint lastclaim){
+    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal,uint lastclaim,
+    uint time){
         return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey, gamerMap[msg.sender].wkcBalance,
-        gamerMap[msg.sender].lastClaimFromBY);
+        gamerMap[msg.sender].lastClaimFromBY,block.timestamp);
     }
 
-    function getTableStatus() public view returns (bool table, bool tablelunchbox, bool tablesuitcase, bool tablecarkey){
-        return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase,
-        gamerMap[msg.sender].tableCarKey);
-    }
 
     function getPlayerInitStatus() public view returns(bool init) {
         return gamerMap[msg.sender].init;
