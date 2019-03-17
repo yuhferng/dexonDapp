@@ -27,7 +27,7 @@ contract MakeWeWork {
         uint lunchBox;
         uint suitCase;
         uint carKey;
-        bool table;
+        //bool table;
         uint lastClaimFromBY;
         mapping(uint=>gamerStatusThisRound) thisRound;
     }
@@ -117,33 +117,25 @@ contract MakeWeWork {
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function CheckRequirement() public {
+    function GoToWorkThisRound() public {
         require(gamerMap[msg.sender].lunchBox>0 && gamerMap[msg.sender].suitCase>0 && gamerMap[msg.sender].carKey>0, "You don't own enough stuff");
-        gamerMap[msg.sender].table = true;
-        gamerMap[msg.sender].lunchBox--;
-        gamerMap[msg.sender].suitCase--;
-        gamerMap[msg.sender].carKey--;
-    }
-
-    function GoToWorkThisRound() public returns (address) {
-        if(gamerMap[msg.sender].table == true){
-            uint id = participants[roundidx].push(msg.sender);
-            gamerStatusThisRound memory m = gamerStatusThisRound({
-                workExpiredTime:0,
-                gainWKC:0,
-                gainDexon:0,
-                isWorkerOn:true,
-                currentWKCGetIndex:0,
-                participated:true,
-                hourRanked: 0
-                });
-            
-            gamerMap[msg.sender].thisRound[0] = m;
-            gamerMap[msg.sender].lunchBox -= 1;
-            gamerMap[msg.sender].suitCase -= 1;
-            gamerMap[msg.sender].carKey -= 1;
-            gamerMap[msg.sender].table == false;
-            gamerMap[msg.sender].thisRound[0].hourRanked = rand%5;
+        require(gamerMap[msg.sender].thisRound[roundidx].participated == false)
+        uint id = participants[roundidx].push(msg.sender);
+        gamerStatusThisRound memory m = gamerStatusThisRound({
+            workExpiredTime:0,
+            gainWKC:0,
+            gainDexon:0,
+            isWorkerOn:true,
+            currentWKCGetIndex:0,
+            participated:true,
+            hourRanked: 0
+            });
+        
+        gamerMap[msg.sender].thisRound[0] = m;
+        gamerMap[msg.sender].lunchBox -= 1;
+        gamerMap[msg.sender].suitCase -= 1;
+        gamerMap[msg.sender].carKey -= 1;
+        gamerMap[msg.sender].thisRound[0].hourRanked = rand%5;
             /*
             Emit participated event with hourWorked info
             */
