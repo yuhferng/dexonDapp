@@ -119,7 +119,7 @@ contract MakeWeWork {
 
     function GoToWorkThisRound() public {
         require(gamerMap[msg.sender].lunchBox>0 && gamerMap[msg.sender].suitCase>0 && gamerMap[msg.sender].carKey>0, "You don't own enough stuff");
-        require(gamerMap[msg.sender].thisRound[roundidx].participated == false)
+        require(gamerMap[msg.sender].thisRound[roundidx].participated == false);
         uint id = participants[roundidx].push(msg.sender);
         gamerStatusThisRound memory m = gamerStatusThisRound({
             workExpiredTime:0,
@@ -139,7 +139,7 @@ contract MakeWeWork {
             /*
             Emit participated event with hourWorked info
             */
-        }
+    
     }
     
     function getFirstParticipants(uint round) public view returns (address) {
