@@ -27,10 +27,7 @@ contract MakeWeWork {
         uint lunchBox;
         uint suitCase;
         uint carKey;
-        bool table;
-        bool tableLunchBox;
-        bool tableSuitCase;
-        bool tableCarKey;
+        //bool table;
         uint lastClaimFromBY;
         mapping(uint=>gamerStatusThisRound) thisRound;
     }
@@ -63,34 +60,43 @@ contract MakeWeWork {
         bool suitCase,
         bool carKey
     );
+    event ReturnProperty(
+        uint lunchbox,
+        uint suitcase,
+        uint carkey
+    );
+    event WkcBalance(
+        uint wkcamount
+    );
 
     constructor () public {
         Owner = msg.sender;
-        CONTRACT_DEPLOYED_TIME = block.timestamp;
     }
 
     modifier OwnerOnly () {
         require(msg.sender == Owner, "You can't use this function darling");
         _;
     }
-
-    function BuyProperty(string memory cargo, uint amount) public payable returns (uint256) {
+    function BuyProperty(string memory cargo, uint amount) public payable returns (uint256 wkcbal) {
         if(StringUtils.equal(cargo,"lunchBox")){
             require(gamerMap[msg.sender].wkcBalance >= amount*50,"You don't have enough token!");
             gamerMap[msg.sender].lunchBox += amount;
             gamerMap[msg.sender].wkcBalance -= amount * 50;
-            emit BuyPropertyEvent("lunchBox",amount);
+            emit BuyPropertyEvent("lunchBox",gamerMap[msg.sender].lunchBox);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);            
         }
         else if(StringUtils.equal(cargo,"suitCase")){
             require(gamerMap[msg.sender].wkcBalance >= amount*60,"You don't have enough token!");
             gamerMap[msg.sender].suitCase += amount;
             gamerMap[msg.sender].wkcBalance -= amount * 60;
-            emit BuyPropertyEvent("suitCase",amount);
+            emit BuyPropertyEvent("suitCase",gamerMap[msg.sender].suitCase);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);                        
         }
         else if(StringUtils.equal(cargo,"carKey")){
             require(msg.value == 1 ether*amount,"Hello");
             gamerMap[msg.sender].carKey += amount;
-            emit BuyPropertyEvent("carKey",amount);
+            emit BuyPropertyEvent("carKey",gamerMap[msg.sender].carKey);
+            emit WkcBalance(gamerMap[msg.sender].wkcBalance);
         }
         else{
             revert("Nope!");
@@ -99,62 +105,44 @@ contract MakeWeWork {
     }
 
     function ClaimBackYard() public returns (uint256) {
-        require((gamerMap[msg.sender].lastClaimFromBY + 1 hours <= block.timestamp), "you cannot claim yet");
-        uint gain_this_time = (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
-        gamerMap[msg.sender].wkcBalance += gain_this_time;
+        require(block.timestamp >= gamerMap[msg.sender].lastClaimFromBY + 3600, "You couldn't claim your wkc yet");
+        //uint gain_this_time = (80/(2**gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex));
+        //gamerMap[msg.sender].wkcBalance += gain_this_time;
+        gamerMap[msg.sender].wkcBalance += 200;
         gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex += 1;
-        emit ClaimWKCfromBackYard(gain_this_time,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
+        gamerMap[msg.sender].lastClaimFromBY = block.timestamp;
+        //emit ClaimWKCfromBackYard(gain_this_time,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
+        emit ClaimWKCfromBackYard(200,gamerMap[msg.sender].thisRound[roundidx].currentWKCGetIndex);
+        emit WkcBalance(gamerMap[msg.sender].wkcBalance);
         return gamerMap[msg.sender].wkcBalance;
     }
 
-    function addRequirement(string memory putin) public {
-        if (StringUtils.equal(putin,"lunchBox")){
-            require(gamerMap[msg.sender].lunchBox >= 1,"You don't have enough LunchBox");
-            gamerMap[msg.sender].tableLunchBox = true;
-            }
-        else if (StringUtils.equal(putin,"suitCase")){
-            require(gamerMap[msg.sender].suitCase >= 1,"You don't have enough SuitCase");
-            gamerMap[msg.sender].tableSuitCase = true;
-            }
-        else if (StringUtils.equal(putin,"carKey")){
-            require(gamerMap[msg.sender].carKey >= 1,"You don't have enough CarKey");
-            gamerMap[msg.sender].tableCarKey = true;
-            }
-        emit RequirementStatus(gamerMap[msg.sender].tableLunchBox,gamerMap[msg.sender].tableSuitCase,gamerMap[msg.sender].tableCarKey);
-        if 
-        (
-        gamerMap[msg.sender].tableCarKey == true && gamerMap[msg.sender].tableLunchBox == true && gamerMap[msg.sender].tableSuitCase == true
-        ){
-            gamerMap[msg.sender].table = true;
-        }
-    }
-
-    function GoToWorkThisRound() public returns (address) {
-        if(gamerMap[msg.sender].table == true){
-            uint id = participants[roundidx].push(msg.sender);
-            gamerStatusThisRound memory m = gamerStatusThisRound({
-                workExpiredTime:0,
-                gainWKC:0,
-                gainDexon:0,
-                isWorkerOn:true,
-                currentWKCGetIndex:0,
-                participated:true,
-                hourRanked: 0
-                });
-            
-            gamerMap[msg.sender].thisRound[0] = m;
-            gamerMap[msg.sender].lunchBox -= 1;
-            gamerMap[msg.sender].suitCase -= 1;
-            gamerMap[msg.sender].carKey -= 1;
-            gamerMap[msg.sender].table == false;
-            gamerMap[msg.sender].thisRound[0].hourRanked = rand%5;
+    function GoToWorkThisRound() public {
+        require(gamerMap[msg.sender].lunchBox>0 && gamerMap[msg.sender].suitCase>0 && gamerMap[msg.sender].carKey>0, "You don't own enough stuff");
+        require(gamerMap[msg.sender].thisRound[roundidx].participated == false);
+        uint id = participants[roundidx].push(msg.sender);
+        gamerStatusThisRound memory m = gamerStatusThisRound({
+            workExpiredTime:0,
+            gainWKC:0,
+            gainDexon:0,
+            isWorkerOn:true,
+            currentWKCGetIndex:0,
+            participated:true,
+            hourRanked: 0
+            });
+        
+        gamerMap[msg.sender].thisRound[0] = m;
+        gamerMap[msg.sender].lunchBox -= 1;
+        gamerMap[msg.sender].suitCase -= 1;
+        gamerMap[msg.sender].carKey -= 1;
+        gamerMap[msg.sender].thisRound[0].hourRanked = rand%5;
             /*
             Emit participated event with hourWorked info
             */
-        }
+    
     }
     
-    function getFirstParticipants(uint round) view public returns (address) {
+    function getFirstParticipants(uint round) public view returns (address) {
         return participants[round][0];
     }
 
@@ -164,19 +152,18 @@ contract MakeWeWork {
 
     function gamerRegistering() public {
         if(gamerMap[msg.sender].init==false){
-            gamerMap[msg.sender].init=true;
-            gamerMap[msg.sender].wkcBalance=100000000;
+            gamerMap[msg.sender].init = true;
+            gamerMap[msg.sender].wkcBalance = 100000000;
             emit PlayerInitialized(msg.sender);
         }
     }
 
-    function getPropertyNumbers() view public returns (uint256, uint256, uint256){
-        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey);
+    function getPropertyNumbers() public view returns (uint256 lunchbox, uint256 suitcase, uint256 carkey, uint256 wkcbal,uint lastclaim,
+    uint time){
+        return (gamerMap[msg.sender].lunchBox, gamerMap[msg.sender].suitCase, gamerMap[msg.sender].carKey, gamerMap[msg.sender].wkcBalance,
+        gamerMap[msg.sender].lastClaimFromBY,block.timestamp);
     }
 
-    function getTableStatus() view public returns (bool, bool, bool, bool){
-        return (gamerMap[msg.sender].table, gamerMap[msg.sender].tableLunchBox, gamerMap[msg.sender].tableSuitCase, gamerMap[msg.sender].tableCarKey);
-    }
 
     function getPlayerInitStatus() public view returns(bool init) {
         return gamerMap[msg.sender].init;
@@ -186,4 +173,7 @@ contract MakeWeWork {
         return (gamerMap[msg.sender].thisRound[0].hourRanked, gamerMap[msg.sender].thisRound[0].workExpiredTime);
     }
 
+    function returnBalance() public view returns(uint256){
+        return (gamerMap[msg.sender].wkcBalance);
+    }
 }

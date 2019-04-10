@@ -30,7 +30,7 @@ library StringUtils {
         bytes memory n;
         h = bytes(_haystack);
         n = bytes(_needle);
-    	if (h.length < 1 || n.length < 1 || (n.length > h.length)){
+    	if ((h.length < 1) || (n.length < 1) || (n.length > h.length)){
     		return (-1);
         }
     	else if(h.length > (2**128 - 1)){
