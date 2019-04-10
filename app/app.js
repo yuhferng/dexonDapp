@@ -73,7 +73,7 @@ const init = async () => {
   amountofLunchBox.textContent = userProperty[1];
   amountofCarKey.textContent = userProperty[2];
 
-  const tableProperty = await contractReader.methods.getTableStatus().call();
+  // const tableProperty = await contractReader.methods.getTableStatus().call();
   const gamerRankOutput = await contractReader.methods.getGamerRank().call();
 
   const table = document.getElementById('table');
@@ -83,10 +83,10 @@ const init = async () => {
   const gamerRankData = document.getElementById('gamerRankData');
   
   
-  table.textContent = tableProperty[0];
-  tableSuitCase.textContent = tableProperty[1];
-  tableLunchBox.textContent = tableProperty[2];
-  tableCarKey.textContent = tableProperty[3];
+  // table.textContent = tableProperty[0];
+  // tableSuitCase.textContent = tableProperty[1];
+  // tableLunchBox.textContent = tableProperty[2];
+  // tableCarKey.textContent = tableProperty[3];
   gamerRankData.textContent = gamerRankOutput[0];
 
   const buyLunchBox = document.getElementById('buyProperty1');
@@ -120,31 +120,6 @@ const init = async () => {
   const addLunchBox = document.getElementById('addProperty1');
   const addSuitCase = document.getElementById('addProperty2');
   const addCarkey = document.getElementById('addProperty3');
-
-  addLunchBox.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('suitCase').send({
-        from: myAccount,
-      });
-    }
-  }
-
-  addSuitCase.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('lunchBox').send({
-        from: myAccount,
-      });
-    }
-  }
-
-  addCarkey.onclick = async () =>{
-    if(contractWriter && myAccount){
-      await contractWriter.methods.addRequirement('carKey').send({
-        from: myAccount,
-      });
-    }
-  }
-
 
 
   // DOM Element to display "value" in contract
