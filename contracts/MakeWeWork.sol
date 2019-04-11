@@ -135,7 +135,7 @@ contract MakeWeWork {
         gamerMap[msg.sender].lunchBox -= 1;
         gamerMap[msg.sender].suitCase -= 1;
         gamerMap[msg.sender].carKey -= 1;
-        gamerMap[msg.sender].thisRound[0].hourRanked = rand%5;
+        gamerMap[msg.sender].thisRound[roundidx].hourRanked = rand%5;
             /*
             Emit participated event with hourWorked info
             */
@@ -170,7 +170,7 @@ contract MakeWeWork {
     }
 
     function getGamerRank() public view returns(uint hourRanked, uint workExpired) {
-        return (gamerMap[msg.sender].thisRound[0].hourRanked, gamerMap[msg.sender].thisRound[0].workExpiredTime);
+        return (gamerMap[msg.sender].thisRound[roundidx].hourRanked, gamerMap[msg.sender].thisRound[roundidx].workExpiredTime);
     }
 
     function returnBalance() public view returns(uint256){
