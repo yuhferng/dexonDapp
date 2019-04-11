@@ -15,6 +15,20 @@ const init = async () => {
   let netId;
   let myAccount;
 
+  if (window.dexon && window.dexon.publicConfigStore) {
+    const store = window.dexon.publicConfigStore;
+  
+    // current active account is store.getState().selectedAddress
+    ACCOUNT = store.getState().selectedAddress;
+  
+    // when user switches account, an event is dispatched to publicConfigStore
+    store.on(
+      'update',
+      ({ selectedAddress }) => ACCOUNT = selectedAddress
+    );
+  }
+  
+  myAccount =  await ACCOUNT
   if (window.dexon) {
     await window.dexon.enable();
     httpHandler = new Web3.default(window.dexon);
@@ -64,7 +78,9 @@ const init = async () => {
   // Get current value and display it
   
   //const roundindex = await contractReader.methods.roundidx().call();
-  const userProperty = await contractReader.methods.getPropertyNumbers().call();
+  const userProperty = await contractReader.methods.getPropertyNumbers().call({
+    from: myAccount,
+  });
   const amountofSuitCase = document.getElementById('suitCaseAmount');
   const amountofLunchBox = document.getElementById('lunchBoxAmount');
   const amountofCarKey = document.getElementById('carKeyAmount');
@@ -74,8 +90,10 @@ const init = async () => {
   amountofCarKey.textContent = userProperty[2];
 
   // const tableProperty = await contractReader.methods.getTableStatus().call();
-  const gamerRankOutput = await contractReader.methods.getGamerRank().call();
-
+  const gamerRankOutput = await contractReader.methods.getGamerRank().call({
+    from: myAccount,
+  });
+  
   const table = document.getElementById('table');
   const tableSuitCase = document.getElementById('tableSuitCase');
   const tableLunchBox = document.getElementById('tableLunchBox');
@@ -125,7 +143,9 @@ const init = async () => {
   // DOM Element to display "value" in contract
   const registerDisplayElement = document.getElementById('registered');
   // Get current value and display it
-  const val = await contractReader.methods.getPlayerInitStatus().call();
+  const val = await contractReader.methods.getPlayerInitStatus().call({
+    from: myAccount,
+  });
   registerDisplayElement.textContent = val;
 
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
