@@ -10,6 +10,7 @@ contract MakeWeWork {
     uint public CUR_GAME_START_TIME;
     uint public CONTRACT_DEPLOYED_TIME;
     uint public roundidx = 0;
+    uint public denominator;
 
     struct gamerStatusThisRound {
         uint workExpiredTime;
@@ -39,7 +40,8 @@ contract MakeWeWork {
     }
     
     mapping(address=>gamerStatus) public gamerMap;
-    mapping(uint=>address[]) public participants;
+    mapping(uint=>address payable[]) public participants;
+    mapping(uint=>uint) public awardRatio;
 
     event PlayerInitialized(
         address playerAddr
@@ -71,6 +73,11 @@ contract MakeWeWork {
 
     constructor () public {
         Owner = msg.sender;
+        awardRatio[0] = 1;
+        awardRatio[1] = 3;
+        awardRatio[2] = 5;
+        awardRatio[3] = 8;
+        awardRatio[4] = 10;
     }
 
     modifier OwnerOnly () {
@@ -131,7 +138,7 @@ contract MakeWeWork {
             hourRanked: 0
             });
         
-        gamerMap[msg.sender].thisRound[0] = m;
+        gamerMap[msg.sender].thisRound[roundidx] = m;
         gamerMap[msg.sender].lunchBox -= 1;
         gamerMap[msg.sender].suitCase -= 1;
         gamerMap[msg.sender].carKey -= 1;
@@ -144,6 +151,10 @@ contract MakeWeWork {
     
     function getFirstParticipants(uint round) public view returns (address) {
         return participants[round][0];
+    }
+
+    function getGainDexon() public view returns(uint) {
+        return gamerMap[msg.sender].thisRound[roundidx].gainDexon;
     }
 
     function goToNextRound() public {
@@ -175,5 +186,23 @@ contract MakeWeWork {
 
     function returnBalance() public view returns(uint256){
         return (gamerMap[msg.sender].wkcBalance);
+    }
+
+    function exeThisRound() public OwnerOnly() returns(uint) {
+        uint totalDenominator = 0;
+        for (uint i=0; i<participants[roundidx].length; i++) {
+            address payable p = participants[roundidx][i];
+            uint award = awardRatio[(gamerMap[p].thisRound[roundidx].hourRanked)];
+            totalDenominator = totalDenominator + award;
+            gamerMap[p].thisRound[roundidx].gainDexon = award;
+        }
+
+        for (uint i=0; i<participants[roundidx].length; i++) {
+            address payable p = participants[roundidx][i];
+            gamerMap[p].thisRound[roundidx].gainDexon = (gamerMap[p].thisRound[roundidx].gainDexon)*(participants[roundidx].length)*1e18 / totalDenominator;
+            p.transfer(gamerMap[p].thisRound[roundidx].gainDexon);
+        }
+        denominator = totalDenominator;
+        return totalDenominator;
     }
 }

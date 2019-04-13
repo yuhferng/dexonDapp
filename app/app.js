@@ -148,6 +148,18 @@ const init = async () => {
   });
   registerDisplayElement.textContent = val;
 
+  const denominatorDisplayElement = document.getElementById('TotalDenominator');
+  const val2 = await contractReader.methods.denominator().call({
+    from: myAccount,
+  });
+  denominatorDisplayElement.textContent = val2;
+
+  const gainDexonDisplayElement = document.getElementById('gainDexon');
+  const val3 = await contractReader.methods.getGainDexon().call({
+    from: myAccount,
+  });
+  gainDexonDisplayElement.textContent = val3;
+
   // Subscribe to "UpdateNumber" event in order to have "value" updated automatically
   contractReader.events.PlayerInitialized({}, (err, data) => {
     if (err) {
@@ -178,6 +190,15 @@ const init = async () => {
     }
   }
   
+
+  const runGameButton = document.getElementById('runGame');
+  runGameButton.onclick = async () => {
+    if (contractWriter && myAccount) {
+      await contractWriter.methods.exeThisRound().send({
+        from: myAccount,
+      });
+    }
+  }  
 
 };
 
