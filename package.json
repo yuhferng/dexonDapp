@@ -12,7 +12,7 @@
     "migrate:ganache": "dexon-truffle migrate --network ganachegui --reset",
     "ganache-cli": "dexon-ganache-cli",
     "rpc": "node ./run-ganache.js",
-    "build:webapp": "rm -rf dist && webpack --progress --mode production && cd dist && python2 -m SimpleHTTPServer"
+    "build:webapp": "rm -rf dist && webpack --progress --mode production && cd dist && python -m SimpleHTTPServer"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "ethereum-input-data-decoder": "0.0.13",
     "jQuery": "^1.7.4",
     "jsdom": "^14.0.0",
+    "npm-run-all": "^4.1.5",
     "web3": "1.0.0-beta.37"
   },
   "devDependencies": {

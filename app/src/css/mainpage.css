@@ -1,6 +1,10 @@
 body{
     margin: 0 0 0 0;
 }
+img{
+    height: auto;
+    max-width: 100%;
+}
 .main-header{
     background-color: white;
     height: 10%;
