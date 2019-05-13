@@ -1,3 +1,3 @@
 # dexonDapp
-DAPP bubble team
+DAPP bubble team \n
 checkout merge branch for app
